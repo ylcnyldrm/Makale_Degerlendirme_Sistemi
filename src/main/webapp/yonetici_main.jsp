@@ -35,9 +35,9 @@
 
             <!-- LOGO -->
             <div class="headerbar-left">
-                <a href="index.jsp" class="logo">
+                <a href="yonetici_main.jsp" class="logo">
                     <img alt="Logo" src="assets/images/logo.png" />
-                    <span>Nura Admin</span>
+                    <span>Yıldırım Admin</span>
                 </a>
             </div>
 

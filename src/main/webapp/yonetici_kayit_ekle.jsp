@@ -30,9 +30,9 @@
 
             <!-- LOGO -->
             <div class="headerbar-left">
-                <a href="index.jsp" class="logo">
+                <a href="yonetici_main.jsp" class="logo">
                     <img alt="Logo" src="assets/images/logo.png" />
-                    <span>NURA ADMIN</span>
+                    <span>Yıldırım Admin</span>
                 </a>
             </div>
 
@@ -539,13 +539,7 @@
 
                                                 <form action="yonetici_kayit_response.jsp" method="post" >
 
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Yeni Kayıt</h5>
-                                                        <button type="button" class="close" data-dismiss="modal">
-                                                            <span aria-hidden="true">&times;</span>
-                                                            <span class="sr-only">Close</span>
-                                                        </button>
-                                                    </div>
+                                                     
                                                     
                                             
                                               <div class="modal-body" >

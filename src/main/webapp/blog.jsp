@@ -33,9 +33,9 @@
 
             <!-- LOGO -->
             <div class="headerbar-left">
-                <a href="index.jsp" class="logo">
+                <a href="yonetici_main.jsp" class="logo">
                     <img alt="Logo" src="assets/images/logo.png" />
-                    <span>NURA ADMIN</span>
+                    <span>Yıldırım Admin</span>
                 </a>
             </div>
 
@@ -246,14 +246,14 @@
                     <ul>
 
                         <li class="submenu">
-                            <a href="index.jsp">
+                            <a href="yonetici_main.jsp">
                                 <i class="fas fa-bars"></i>
                                 <span> Dashboard </span>
                             </a>
                         </li>
 
                         <li class="submenu">
-                            <a href="users.jsp">
+                            <a href="yonetici_kayit_ekle.jsp">
                                 <i class="fas fa-user"></i>
                                 <span> Users </span>
                             </a>
@@ -554,38 +554,79 @@
                                             </thead>
                                             <tbody>
 
-                                                   <%
-                                                    Veritabanibaglantisi vt = new Veritabanibaglantisi();
-                                                    ResultSet rs =   vt.dbdenVeriCek("select * from makale_degerlendirme.makaleler  where makale_ogretmen_id IS NULL");
-                                                    while(rs.next()){
-                                                    ResultSet rs1 =   vt.dbdenVeriCek( 
-                                                    		"SELECT makale_degerlendirme.makale_yazar.makale_yazar_ad, "+
-                                                    		"makale_degerlendirme.makale_yazar.makale_yazar_soyad "+
-                                                    		"FROM makale_degerlendirme.makale_yazar "+
-                                                    		"INNER JOIN  makale_degerlendirme.makaleler "+
-                                                    		"ON makale_degerlendirme.makaleler.makale_yazar_id = makale_degerlendirme.makale_yazar.makale_yazar_id");
-                                                      while(rs1.next()){
-                                                    	   %>
-                                                    	       <tr>
-                                                    <td>
-                                                        <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
-                                                        <h4> Vivamus condimentum rutrum odio</h4>
-                                                        <p>Posted by <b><%=rs1.getString("makale_yazar_ad") %>  <%=rs1.getString("makale_yazar_soyad") %></b> at Nov 29 2018</p>
-                                                        <p><%= rs.getString("makale_konu") %> </p>
-                                                    </td>
+                     <%
+                      Veritabanibaglantisi vt = new Veritabanibaglantisi();
+                      //Makeleler tablosundan ogretmenid si null olanlar gelsin 2 tane geliyor
+                      int makaleId=0;
+                      ResultSet rs =   vt.dbdenVeriCek("SELECT "+
+                    		  "makale_degerlendirme.makaleler.makale_id, "+ 
+                    		  "makale_degerlendirme.makale_yazar.makale_yazar_ad, "+ 
+                    		  "makale_degerlendirme.makale_yazar.makale_yazar_soyad, "+ 
+                    		  "makale_degerlendirme.makaleler.makale_yuklenme_tarih, "+ 
+                    		  "makale_degerlendirme.makaleler.makale_konu, "+ 
+                    		  "makale_degerlendirme.makaleler.makale_baslik "+ 
+                    		  "FROM makale_degerlendirme.makale_yazar "+ 
+                    		  "INNER JOIN  makale_degerlendirme.makaleler "+ 
+                    		  "ON makale_degerlendirme.makaleler.makale_yazar_id = makale_degerlendirme.makale_yazar.makale_yazar_id "+ 
+                    		  "where makale_degerlendirme.makaleler.makale_ogretmen_id IS NULL");
+                      while(rs.next()){  
+                        %>
+                        <tr>
+                        <td>
+                        
+                       <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
+                        <h4> <%=rs.getString("makale_baslik") %> </h4>
+                        <p>Posted by <b><%=rs.getString("makale_yazar_ad") %>  <%=rs.getString("makale_yazar_soyad") %></b> <%=rs.getString("makale_yuklenme_tarih") %> </p>
+                        <p><%= rs.getString("makale_konu") %> </p>
+                        </td>
+                        <td>Blog</td>
+                         
+                        <td>
+                         <a href='makale_ogretmen_ata_response.jsp?id=<%=rs.getString("makale_id")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleye Öğretmen Ata</a>   
+                        <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card mb-3">
+                        <div class="card-header">
+                        <span class="pull-right">
+                        <button class="btn btn-primary btn-sm"   data-toggle="modal" data-target="#modal_add_user"> 
+                        <i   aria-hidden="true"></i> Makaleye Öğretmen Ata  <%=rs.getString("makale_id") %></button>
+                     
+                        </span>
+                        <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="modal_add_user" aria-hidden="true" id="modal_add_user">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                        <form action="makale_ogretmen_ata_response.jsp" method="post" >
+                        <div class="modal-body"> 
+                         <select name="item">
+                         <% 
+                         ResultSet rs1= vt.dbdenVeriCek("SELECT * FROM makale_degerlendirme.ogretmen"); 
+                         while(rs1.next()) {
+                    	  
+                         int ogretmenId=Integer.parseInt(rs1.getString("ogretmen_id"));
+                         %>
+                         <option value=<%=ogretmenId %>><%=rs1.getString("ogretmen_ad")%> <%=rs1.getString("ogretmen_soyad")%> <%=rs1.getString("ogretmen_puan")%>  </option>
+                         <%
+                         }
+                         %> 
+                        </select>
+                         <input type="submit" value="Öğretmeni Seç">
+                        
+                        </form> 
+                        </div>
+                        
+                        </form>
 
-                                                    <td>Blog</td>
-
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Edit</a>                                                        
-                                                        <a href="#" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Delete</a>                                                        
-                                                    </td>
-                                                    </tr>
-                                                    	   	<%
-                                                      }
-                                                   
-                                                    } 
-                                                   %>
+                           </div>
+                           </div>
+                           </div>
+                        
+                                </div>
+                                             
+                        </td>
+                        </tr>
+                          <%
+                         } 
+                        %>                                
                                                 <tr>
                                                     <td>
                                                         <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
@@ -702,6 +743,8 @@
                 Powered by <a target="_blank" href="https://bootstrap24.com" title="Download free Bootstrap templates"><b>Bootstrap24.com</b></a>
             </span>
         </footer>
+        
+        
 
         <script src="assets/js/modernizr.min.js"></script>
         <script src="assets/js/jquery.min.js"></script>
@@ -720,7 +763,7 @@
 
     </div>
     <!-- END main -->
-
+ 
 </body>
 
 </html>

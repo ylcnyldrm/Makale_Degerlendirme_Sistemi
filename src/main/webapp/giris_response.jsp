@@ -1,5 +1,6 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8" %>
  <%@page import="classes.Veritabanibaglantisi"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+ 
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>   
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
@@ -52,7 +53,7 @@
 			    	 
 			    }
 			    else {
-			    	System.out.print("Bağlantı başarılı userName = "+tc+"sifre= "+sifre); 
+			    	System.out.print("Tc veya Şifre bilgisii hatalı."); 
 			    	// response.sendRedirect("error.jsp");
 			    }
 			    

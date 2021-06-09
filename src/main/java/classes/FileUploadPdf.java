@@ -7,7 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement; 
+import java.sql.Statement;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -81,6 +82,8 @@ public class FileUploadPdf extends HttpServlet {
                   		+ "  `kabul_veya_ret_tarih` date DEFAULT NULL,\r\n"
                   		+ "  `makale_ogretmen_id` int DEFAULT NULL,\r\n"
                   		+ "  `makale_kabul_ret_durum` varchar(45) DEFAULT NULL,\r\n"
+                  		+ "  `kabul_veya_ret_tarih` date DEFAULT NULL,\r\n"
+                  		+ "  `makale_baslik` varchar(45) DEFAULT NULL,\r\n"
                   		+ "  PRIMARY KEY (`makale_id`)\r\n"
                   		+ ")");
  
@@ -89,19 +92,19 @@ public class FileUploadPdf extends HttpServlet {
               } catch (Exception e) {
                         System.out.println("Tables already created, skipping table creation process");
                   }
- 
+                LocalDate date = LocalDate.now();
                 int success=0; 
                 HttpSession session = request.getSession();
                 String yazarTc=(String) session.getAttribute("yazarTc");
                 Veritabanibaglantisi vt = new Veritabanibaglantisi();
-                ResultSet rs =   vt.dbdenVeriCek("select makale_yazar_id from makale_degerlendirme.makale_yazar");
+                ResultSet rs =   vt.dbdenVeriCek("select makale_yazar_id from makale_degerlendirme.makale_yazar where makale_yazar_tc='"+yazarTc+"' ");
                 int yazarId; 
                 
                 while(rs.next()) { 
                 	yazarId=Integer.parseInt( rs.getString("makale_yazar_id")); 
                     stmt.execute("insert into makale_degerlendirme.makaleler (makale_konu,makale_pdf,makale_yazar_id,kabul_ret_baslangic_tarih,"+
-                  		     "kabul_veya_ret_tarih,makale_ogretmen_id,makale_kabul_ret_durum) values ('"+"konu"+"',"+
-                  		      " '"+bytes+"','"+yazarId+"',NULL,NULL,NULL,NULL) ");
+                  		     "kabul_veya_ret_tarih,makale_ogretmen_id,makale_kabul_ret_durum,makale_yuklenme_tarih,makale_baslik) values ('"+"konu"+"',"+
+                  		      " '"+bytes+"','"+yazarId+"',NULL,NULL,NULL,NULL,'"+date+"','"+"baslik"+"') ");
                  }
              
                //Storing binary data in blob field.

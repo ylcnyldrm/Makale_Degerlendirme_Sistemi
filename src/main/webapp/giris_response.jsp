@@ -66,7 +66,7 @@
 		   
 	   }else {
 		   
-		   out.print(" BÖYLE BİR YÖNETİCİ BULUNAMAMAKTADIR.  ");
+		   out.print(" BÖYLE BİR KAYIT BULUNAMAMAKTADIR.  ");
 	   }
 	   
 	 

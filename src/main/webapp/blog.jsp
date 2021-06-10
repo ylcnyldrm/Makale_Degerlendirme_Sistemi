@@ -589,7 +589,7 @@
                         <div class="card-header">
                         <span class="pull-right">
                         <button class="btn btn-primary btn-sm"   data-toggle="modal" data-target="#modal_add_user"> 
-                        <i   aria-hidden="true"></i> Makaleye Öğretmen Ata  <%=rs.getString("makale_id") %></button>
+                        <i   aria-hidden="true"></i> Makaleye Öğretmen Ata </button>
                      
                         </span>
                         <div class="modal fade custom-modal" tabindex="-1" role="dialog" aria-labelledby="modal_add_user" aria-hidden="true" id="modal_add_user">

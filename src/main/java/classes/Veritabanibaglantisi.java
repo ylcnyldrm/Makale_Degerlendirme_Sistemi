@@ -1,5 +1,5 @@
 package classes;
-
+ 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,6 +16,7 @@ public class Veritabanibaglantisi {
 	private ResultSet rs=null;
 	private Statement stmt=null;
 	
+ 
 	public  void baglan(){ 
 		 
 		try{  

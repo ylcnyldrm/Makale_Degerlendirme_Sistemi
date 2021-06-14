@@ -622,7 +622,7 @@ ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_dege
                          </td>
                          <td>Blog</td> 
                          <td>    
-                        <a href='FileReadPdf?id=<%=rs.getString("makale_id")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleyi İncele</a>
+                        <a href='FileReadPdf1?id=<%=rs.getString("makale_id")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleyi İncele</a>
                        
                         <a href="ogretmen_makale_kabul.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Kabul Et</a>                                                        
                         <a href="ogretmen_makale_ret.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Reddet</a>   

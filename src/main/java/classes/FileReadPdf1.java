@@ -36,8 +36,9 @@ public class FileReadPdf1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String bookId = request.getParameter("bookId") != null ? request.getParameter("bookId") : "NA";
-
+		String bookId = request.getParameter("id");
+  
+		System.out.print("GELEN MAKALE ÝD "+bookId );
 		ServletOutputStream sos;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -49,7 +50,7 @@ public class FileReadPdf1 extends HttpServlet {
 		sos = response.getOutputStream();
 
 		try {
-			// Class.forName("com.mysql.jdbc.Driver");
+			 Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/makale_degerlendirme", "root", "Ankara.1");
 		} catch (Exception e) {
 			System.out.println(e);
@@ -57,35 +58,19 @@ public class FileReadPdf1 extends HttpServlet {
 		}
 
 		ResultSet rset = null;
-
-		/*
-		 * 
-		 * try { pstmt =
-		 * con.prepareStatement("Select bookcontent from Book where bookId=?");
-		 * pstmt.setString(1, bookId.trim()); rset = pstmt.executeQuery(); if
-		 * (rset.next()) sos.write(rset.getBytes("bookcontent")); else return;
-		 * 
-		 * } catch (SQLException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 * 
-		 */
-
-		System.out.print("KÝTAP VE MAKALE ÝD  " + bookId);
-		try {
-			pstmt = con.prepareStatement("SELECT makale_pdf FROM makale_degerlendirme.makaleler where makale_id='"+bookId.trim()+"' ");
+ 
+		
+		  try { pstmt = con.
+		  prepareStatement("SELECT makale_pdf FROM makale_degerlendirme.makaleler where makale_id='"
+		  +bookId.trim()+"' ");
+		  
+		  rset = pstmt.executeQuery(); if (rset.next())
+		  sos.write(rset.getBytes("makale_pdf")); else return;
+		  
+		  } catch (SQLException e) { e.printStackTrace(); }
+		  
+		  sos.flush(); sos.close();
 		 
-			rset = pstmt.executeQuery();
-			if (rset.next())
-				sos.write(rset.getBytes("makale_pdf"));
-			else
-				return;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		sos.flush();
-		sos.close();
 
 	}
 

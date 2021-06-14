@@ -40,7 +40,7 @@
                     <span>Yıldırım Admin</span>
                 </a>
             </div>
-
+ 
             <nav class="navbar-custom">
 
                 <ul class="list-inline float-right mb-0">

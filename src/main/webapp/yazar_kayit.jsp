@@ -25,7 +25,7 @@
   
   <h1>Kayıt Ol</h1>
   
-  <form id="myform" action="kullanici_kayit_response.jsp" >
+  <form id="myform" action="yazar_kayit_response.jsp" >
    
   <div class="col-2">
     <label>

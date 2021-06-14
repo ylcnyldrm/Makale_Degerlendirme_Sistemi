@@ -536,6 +536,12 @@
                             <div class="card mb-3">
 
                                 <div class="card-header">
+                                 <form class="form-inline" method="post" action="yonetici_arama_sayfasi_response.jsp">
+                                 <input type="text" name="arama_ad"   placeholder="">
+                                <button type="submit" name="save" class="btn btn-primary">Search</button>
+                                </form>
+                                
+                                
                                     <span class="pull-right"><a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus" aria-hidden="true"></i> Add new post</a></span>
                                     <h3><i class="far fa-file-alt"></i> Makaleler</h3>
                                 </div>

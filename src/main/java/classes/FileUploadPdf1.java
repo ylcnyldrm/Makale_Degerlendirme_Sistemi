@@ -33,8 +33,7 @@ public class FileUploadPdf1 extends HttpServlet {
     protected void doPost(HttpServletRequest request,  HttpServletResponse response)       throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
  
-        final Part filePart = request.getPart("file");
-        String bookId = request.getParameter("bookId");
+        final Part filePart = request.getPart("file"); 
  
         InputStream pdfFileBytes = null;
         final PrintWriter writer = response.getWriter();
@@ -88,10 +87,18 @@ public class FileUploadPdf1 extends HttpServlet {
                 System.out.print("GELEN YAZAR ÝD "+yazarId);
                  
                 PreparedStatement pstmt = con.prepareStatement("insert into makale_degerlendirme.makaleler (makale_konu,makale_pdf,makale_yazar_id,kabul_ret_baslangic_tarih,"+
-             		     "kabul_veya_ret_tarih,makale_ogretmen_id,makale_kabul_ret_durum,makale_yuklenme_tarih,makale_baslik) values ('"+"konu"+"',"+
-             		      " '"+bytes+"','"+yazarId+"',NULL,NULL,NULL,NULL,'"+date+"','"+"baslik"+"') ");
-         
-                //Storing binary data in blob field.
+             		     "kabul_veya_ret_tarih,makale_ogretmen_id,makale_kabul_ret_durum,makale_yuklenme_tarih,makale_baslik) values (?,?,?,?,?,?,?,?,?) ");
+                
+               pstmt.setString(1,"konu");
+               pstmt.setBytes(2, bytes);
+               pstmt.setInt(3, yazarId);
+               pstmt.setString(4, null);
+               pstmt.setString(5, null);
+               pstmt.setString(6, null);
+               pstmt.setString(7, null);
+               pstmt.setString(8, date.toString());
+               pstmt.setString(9, "baslik");
+                
                 success = pstmt.executeUpdate();
                 if(success>=1)  System.out.println("Book Stored");
                  con.close(); 

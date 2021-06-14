@@ -12,7 +12,7 @@
     <tr>
     <td>makale id gir</td>
     <td>
-    <input type="text" name="bookId" />
+    <input type="text" name="id" />
     </td>
     </tr>
     <tr>

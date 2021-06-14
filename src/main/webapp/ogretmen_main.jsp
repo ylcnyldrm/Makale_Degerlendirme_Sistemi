@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.mysql.cj.protocol.Resultset"%>
 <%@page import="classes.Veritabanibaglantisi"%>
@@ -556,40 +559,96 @@
 
                      <%
                       Veritabanibaglantisi vt = new Veritabanibaglantisi();
+                      //Makeleler tablosundan ogretmenid si null olanlar gelsin 2 tane geliyor 
+                      int makaleId=0;
+                      int ogretmenId=0;
+                      int ogretmenTc= Integer.parseInt((String)session.getAttribute("ogretmenTc"));
+                      ResultSet rs1=vt.dbdenVeriCek("select ogretmen_id from makale_degerlendirme.ogretmen where ogretmen_tc='"+ogretmenTc+"' ");
+                      while(rs1.next()){
+                    	  ogretmenId=(rs1.getInt("ogretmen_id"));
+                      } 
+                      ResultSet rs =   vt.dbdenVeriCek("SELECT "+
+                    		  "makale_degerlendirme.makaleler.kabul_ret_baslangic_tarih, "+
+                    		  "makale_degerlendirme.makaleler.makale_id, "+
+                    		  "makale_degerlendirme.makale_yazar.makale_yazar_ad, "+
+                    		  "makale_degerlendirme.makale_yazar.makale_yazar_soyad,  "+
+                    		  "makale_degerlendirme.makaleler.makale_yuklenme_tarih, "+
+							  "makale_degerlendirme.makaleler.makale_konu,  "+
+                    		  "makale_degerlendirme.makaleler.makale_baslik  "+
+                    		  "FROM makale_degerlendirme.makale_yazar  "+
+                    		  "INNER JOIN  makale_degerlendirme.makaleler  "+
+                    		  "ON makale_degerlendirme.makaleler.makale_yazar_id = makale_degerlendirme.makale_yazar.makale_yazar_id "+ 
+                    		  "where kabul_veya_ret_tarih IS NULL AND makale_ogretmen_id='"+ogretmenId+"' ");
+                       while(rs.next()){
+                       String tarih= rs.getString("kabul_ret_baslangic_tarih");  
+           			   LocalDate bugun=LocalDate.now(); 
+           			   String currentDate=bugun.toString(); 
+           			   SimpleDateFormat myformat=new SimpleDateFormat("yyyy-MM-dd");
+           		       String bugun2 =currentDate;  
+           		 	   Date kabulRetBaslanhicTarih = myformat.parse(tarih);
+           			   Date secondDate = myformat.parse(bugun2);
+           			   long dif =secondDate.getTime()- kabulRetBaslanhicTarih.getTime();
+           	  		   int daysBetween =(int) (dif/(1000*60*60*24));
+           	  		   System.out.println("KABUL RET BASLANGIÇ TARİH = "+tarih);
+           	  		   System.out.println("bugün = "+bugun2);
+           	  		   System.out.println("GÜN FARKI = "+daysBetween);
+           	  		   if(daysBetween <5){ 
+           	  			 %>
+                         <tr>
+                         <td> 
+                        <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
+                         <h4> <%=rs.getString("makale_baslik") %> </h4>
+                         <p>Posted by <b><%=rs.getString("makale_yazar_ad") %>  <%=rs.getString("makale_yazar_soyad") %></b> <%=rs.getString("makale_yuklenme_tarih") %> </p>
+                         <p><%= rs.getString("makale_konu") %> </p>
+                         </td>
+                         <td>Blog</td> 
+                         <td>    
+                        <a href='FileReadPdf?id=<%=rs.getString("makale_id")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleyi İncele</a>
+                       
+                        <a href="ogretmen_makale_kabul.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Kabul Et</a>                                                        
+                        <a href="ogretmen_makale_ret.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Reddet</a>   
+                                              
+                         </td>
+                         </tr>
+                           <% 
+  			           }
+  			           else { 
+  			        	 makaleId= rs.getInt("makale_id");
+  			        	 System.out.println("makale id = "+makaleId); 
+  			        	 Boolean b= vt.execute("update makale_degerlendirme.makaleler set makale_ogretmen_id=NULL, kabul_ret_baslangic_tarih=NULL where makale_id='"+makaleId+"'  ");
+  			        	 if(b){
+  			        		System.out.println(" SÜRESİ GEÇMİŞ MAKALE GÜNCELLENDİ ");
+  			        	 }
+  			        	 else {
+  			        		System.out.println(" SÜRESİ GEÇMİŞ MAKALE GÜNCELLENEMEDİ ");
+  			        	 }
+  			        	 
+  			           }  
+                     
+                         } 
+                        %>         
+                        
+                      <%--   
+                          <%
+                      Veritabanibaglantisi vt = new Veritabanibaglantisi();
                       //Makeleler tablosundan ogretmenid si null olanlar gelsin 2 tane geliyor
                       int makaleId=0;
-                      ResultSet rs =   vt.dbdenVeriCek("SELECT "+
-                    		  "makale_degerlendirme.makaleler.makale_id, "+ 
-                    		  "makale_degerlendirme.makale_yazar.makale_yazar_ad, "+ 
-                    		  "makale_degerlendirme.makale_yazar.makale_yazar_soyad, "+ 
-                    		  "makale_degerlendirme.makaleler.makale_yuklenme_tarih, "+ 
-                    		  "makale_degerlendirme.makaleler.makale_konu, "+ 
-                    		  "makale_degerlendirme.makaleler.makale_baslik "+ 
-                    		  "FROM makale_degerlendirme.makale_yazar "+ 
-                    		  "INNER JOIN  makale_degerlendirme.makaleler "+ 
-                    		  "ON makale_degerlendirme.makaleler.makale_yazar_id = makale_degerlendirme.makale_yazar.makale_yazar_id "+ 
-                    		  "where makale_degerlendirme.makaleler.makale_ogretmen_id IS NULL");
+                      ResultSet rs =   vt.dbdenVeriCek("SELECT * FROM makale_degerlendirme.book");
                       while(rs.next()){  
                         %>
                         <tr>
                         <td>
-                        
-                       <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
-                        <h4> <%=rs.getString("makale_baslik") %> </h4>
-                        <p>Posted by <b><%=rs.getString("makale_yazar_ad") %>  <%=rs.getString("makale_yazar_soyad") %></b> <%=rs.getString("makale_yuklenme_tarih") %> </p>
-                        <p><%= rs.getString("makale_konu") %> </p>
-                        </td>
-                        <td>Blog</td>
-                         
-                        <td>
-                         <a href='makale_ogretmen_ata_response.jsp?id=<%=rs.getString("makale_id")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleye Öğretmen Ata</a>   
-                       
+                      
+                      
+                        <a href='FileReadPdf?id=<%=rs.getString("bookId")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleyi İncele</a>                                                       
+                    
                                              
                         </td>
                         </tr>
                           <%
                          } 
-                        %>                                
+                        %>    --%>
+                                               
                                                 <tr>
                                                     <td>
                                                         <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>

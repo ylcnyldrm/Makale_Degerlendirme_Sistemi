@@ -1,6 +1,8 @@
 package classes;
   
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mysql.cj.jdbc.Blob;
  
 /**
  * Servlet implementation class GetDetails
@@ -33,24 +37,27 @@ public class FileReadPdf extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         
-        String bookId = request.getParameter("bookId")!=null?request.getParameter("bookId"):"NA";
-         
+    	response.setContentType("text/html;charset=UTF-8");
+    	System.out.print("FÝLE READ PDF "+ request.getParameter("bookId"));
+    	
+    	
+        String makaleId = request.getParameter("bookId"); 
         ServletOutputStream sos;
         Connection  con=null;
         PreparedStatement pstmt=null;
          
         response.setContentType("application/pdf");
  
-        response.setHeader("Content-disposition","inline; filename="+bookId+".pdf" );
+        response.setHeader("Content-disposition","inline; filename="+makaleId+".pdf" );
  
  
          sos = response.getOutputStream();
          
  
            try {
-               Class.forName("com.mysql.jdbc.Driver");
-               con = DriverManager.getConnection("jdbc:mysql://localhost:3306/randevu","root","Ankara.1");
+        	   Class.forName("com.mysql.cj.jdbc.Driver");  
+               con = DriverManager.getConnection("jdbc:mysql://localhost:3306/makale_degerlendirme","root","Ankara.1");
+ 
           } catch (Exception e) {
                      System.out.println(e);
                      System.exit(0); 
@@ -58,11 +65,11 @@ public class FileReadPdf extends HttpServlet {
             
           ResultSet rset=null;
             try {
-                pstmt = con.prepareStatement("Select bookcontent from Book where bookId=?");
-                pstmt.setString(1, bookId.trim());
+                pstmt = con.prepareStatement("Select makale_pdf from makale_degerlendirme.makaleler where makale_id=?"); 
+                pstmt.setString(1, makaleId.trim());
                 rset = pstmt.executeQuery();
                 if (rset.next())
-                    sos.write(rset.getBytes("bookcontent"));
+                    sos.write(rset.getBytes("makale_pdf"));
                 else
                     return;
                  

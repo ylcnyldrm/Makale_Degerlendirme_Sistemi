@@ -1,10 +1,12 @@
-package classes; 
+package classes;
+ 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,12 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
-import com.mysql.cj.Session;
  
-@WebServlet("/FileUpload")
+@WebServlet("/FileUpload1")
 @MultipartConfig
-public class FileUploadPdf extends HttpServlet {
+public class FileUploadPdf1 extends HttpServlet {
  
     /**
      *
@@ -34,6 +34,7 @@ public class FileUploadPdf extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
  
         final Part filePart = request.getPart("file");
+        String bookId = request.getParameter("bookId");
  
         InputStream pdfFileBytes = null;
         final PrintWriter writer = response.getWriter();
@@ -57,25 +58,44 @@ public class FileUploadPdf extends HttpServlet {
  
             final byte[] bytes = new byte[pdfFileBytes.available()];
              pdfFileBytes.read(bytes);  //Storing the binary data in bytes array.
-             Veritabanibaglantisi vt = new Veritabanibaglantisi();
-           
-                LocalDate date = LocalDate.now();
-                int success=0; 
+ 
+            Connection  con=null; 
+ 
+               try {
+                     Class.forName("com.mysql.jdbc.Driver");
+                     con = DriverManager.getConnection("jdbc:mysql://localhost:3306/makale_degerlendirme","root","Ankara.1");
+                  } catch (Exception e) {
+                        System.out.println(e);
+                        System.exit(0);
+                              }
+  
+                  
+                int success=0;
+                
+                
+                Veritabanibaglantisi vt = new Veritabanibaglantisi();
+                
+                LocalDate date = LocalDate.now(); 
                 HttpSession session = request.getSession();
                 String yazarTc=(String) session.getAttribute("yazarTc"); 
                 ResultSet rs =   vt.dbdenVeriCek("select makale_yazar_id from makale_degerlendirme.makale_yazar where makale_yazar_tc='"+yazarTc+"' ");
-                int yazarId; 
+                int yazarId=0; 
                 
                 while(rs.next()) { 
-                	yazarId=Integer.parseInt( rs.getString("makale_yazar_id")); 
-                    vt.execute("insert into makale_degerlendirme.makaleler (makale_konu,makale_pdf,makale_yazar_id,kabul_ret_baslangic_tarih,"+
-                  		     "kabul_veya_ret_tarih,makale_ogretmen_id,makale_kabul_ret_durum,makale_yuklenme_tarih,makale_baslik) values ('"+"konu"+"',"+
-                  		      " '"+bytes+"','"+yazarId+"',NULL,NULL,NULL,NULL,'"+date+"','"+"baslik"+"') ");
-                 }
-             
-               //Storing binary data in blob field.
+                	yazarId=Integer.parseInt( rs.getString("makale_yazar_id"));  
                  
-                if(success>=1)  System.out.println("Book Stored");  
+                 }
+                System.out.print("GELEN YAZAR ÝD "+yazarId);
+                 
+                PreparedStatement pstmt = con.prepareStatement("insert into makale_degerlendirme.makaleler (makale_konu,makale_pdf,makale_yazar_id,kabul_ret_baslangic_tarih,"+
+             		     "kabul_veya_ret_tarih,makale_ogretmen_id,makale_kabul_ret_durum,makale_yuklenme_tarih,makale_baslik) values ('"+"konu"+"',"+
+             		      " '"+bytes+"','"+yazarId+"',NULL,NULL,NULL,NULL,'"+date+"','"+"baslik"+"') ");
+         
+                //Storing binary data in blob field.
+                success = pstmt.executeUpdate();
+                if(success>=1)  System.out.println("Book Stored");
+                 con.close(); 
+ 
                  writer.println("<br/> Book Successfully Stored");
  
         } catch (FileNotFoundException fnf) {

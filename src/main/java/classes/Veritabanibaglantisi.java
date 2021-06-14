@@ -65,7 +65,7 @@ public class Veritabanibaglantisi {
     		return true;
     		 
 		} catch (Exception e) {
-			 System.out.print("public Boolean  dbyeveriEkle DB YE VERÝ EKLE EXCELTÝON " + e );
+			 System.out.print("public Boolean  dbyeveriEkle DB YE VERÝ EKLE EXCEPTÝON " + e );
 			 return false;
 		}
         	  

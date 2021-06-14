@@ -21,7 +21,7 @@
   Veritabanibaglantisi vt= new Veritabanibaglantisi();
   Boolean b = vt.execute("update makale_degerlendirme.makaleler set makale_ogretmen_id='"+hocaId+"', kabul_ret_baslangic_tarih='"+date+"' where makale_id='"+makaleId+"' ");
   if(b){
-	  out.print("BAŞARILI");
+	
 	  
 	 ResultSet rs =  vt.dbdenVeriCek("SELECT ogretmen_mail FROM makale_degerlendirme.ogretmen where ogretmen_id='"+hocaId+"' ");
 	 String ogretmenMail=""; 
@@ -84,6 +84,7 @@
 	         msg.setText(messg);
 	         msg.setSentDate(new Date());
 	         Transport.send(msg);
+	         response.sendRedirect("yonetici_main.jsp");
 	         System.out.println("Message sent.");
 	       }catch (MessagingException e){ 
 	         System.out.println("Erreur d'envoi, cause: " + e);

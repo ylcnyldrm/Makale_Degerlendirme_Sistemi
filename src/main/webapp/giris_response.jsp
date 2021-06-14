@@ -40,7 +40,7 @@
 			    	else if(  Integer.parseInt(rs.getString("giris_turu"))==1){
 			    		System.out.print("Bağlantı başarılı userName = "+tc+"sifre= "+sifre); 
 			    		session.setAttribute("ogretmenTc", rs.getString("tc"));
-				    	  response.sendRedirect("yonetici_main.jsp");
+				    	  response.sendRedirect("ogretmen_main.jsp");
 			    		
 			    	}
 			    	//yonetici giriş

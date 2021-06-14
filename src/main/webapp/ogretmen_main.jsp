@@ -29,6 +29,25 @@
 
 <body class="adminbody">
 
+
+ <%
+ Veritabanibaglantisi vt1 = new Veritabanibaglantisi();
+ int ogretmenId1=0;
+ int ogretmenTc1= Integer.parseInt((String)session.getAttribute("ogretmenTc"));
+ ResultSet rs2=vt1.dbdenVeriCek("select ogretmen_id from makale_degerlendirme.ogretmen where ogretmen_tc='"+ogretmenTc1+"' ");
+ while(rs2.next()){
+	  ogretmenId1=(rs2.getInt("ogretmen_id"));
+ } 
+
+ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_degerlendirme.makaleler where makale_ogretmen_id='"+ogretmenId1+"' ");
+   while(rs3.next()){
+		
+	}
+
+ %>
+     
+
+
     <div id="main">
 
         <!-- top bar navigation -->
@@ -615,8 +634,8 @@
   			           else { 
   			        	 makaleId= rs.getInt("makale_id");
   			        	 System.out.println("makale id = "+makaleId); 
-  			        	 Boolean b= vt.execute("update makale_degerlendirme.makaleler set makale_ogretmen_id=NULL, kabul_ret_baslangic_tarih=NULL where makale_id='"+makaleId+"'  ");
-  			        	 if(b){
+  			        	 Boolean b1= vt.execute("update makale_degerlendirme.makaleler set makale_ogretmen_id=NULL, kabul_ret_baslangic_tarih=NULL where makale_id='"+makaleId+"'  ");
+  			        	 if(b1){
   			        		System.out.println(" SÜRESİ GEÇMİŞ MAKALE GÜNCELLENDİ ");
   			        	 }
   			        	 else {

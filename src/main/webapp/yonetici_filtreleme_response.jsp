@@ -42,40 +42,44 @@
 							</tr>
 						</thead>
 						<% 
+						
+						  int secim = Integer.parseInt(request.getParameter("item"));  
 						  Veritabanibaglantisi vb = new Veritabanibaglantisi();
-						  String yazarAd=request.getParameter("arama_ad"); 
-						  ResultSet rs= vb.dbdenVeriCek("select makale_degerlendirme.makale_yazar.makale_yazar_ad, "+
-								  "makale_degerlendirme.makale_yazar.makale_yazar_soyad, "+
-								  "makale_degerlendirme.makaleler.makale_baslik, "+
-								  "makale_degerlendirme.makaleler.makale_konu "+
-								  "from makale_degerlendirme.makale_yazar "+
-								   "INNER JOIN makale_degerlendirme.makaleler "+
-								   "on makale_degerlendirme.makaleler.makale_yazar_id= makale_degerlendirme.makale_yazar.makale_yazar_id "+
-								   "where makale_yazar_ad like '"+yazarAd+"'  ");
-                         if(rs!=null)
-                         {
-                             while(rs.next())
-                             {
-                            	 System.out.print("MAKALE varK");
-                                 %> 
-                             
-						<tbody>
-								<tr>
-									<td class="column1"><%=  rs.getString("makale_yazar_ad") %> </td>
-									<td class="column2"><%=  rs.getString("makale_yazar_soyad")%>  </td>
-									<td class="column3"><%=  rs.getString("makale_baslik") %></td>
-									<td class="column4"><%=  rs.getString("makale_konu")%></td>  
-								</tr> 
-                                 <% 
-                             }
-                         }
-                         else {
-                        	 System.out.print("MAKALE YOK");
-                        	  %> 
-                        	  
-								 <H2> MAKALE YOK </H2>
-                               <% 
-                         }
+						  System.out.print("SEÇİM "+secim);
+						  if(secim==1){ 
+							  ResultSet rs= vb.dbdenVeriCek("SELECT * FROM makale_degerlendirme.makaleler where makale_kabul_ret_durum='"+"KABUL EDİLDİ"+"' ");
+	                           
+	                          while(rs.next())
+	                          {
+	                          System.out.print("MAKALE varK");
+	                          %> 
+	                          <tbody>
+									<tr> 
+										<td class="column3"><%=  rs.getString("makale_baslik") %></td>
+										<td class="column4"><%=  rs.getString("makale_konu")%></td>  
+									</tr> 
+	                                 <% 
+	                             }
+						  }
+						  {
+							  
+						  }
+						  if(secim==2){
+							  ResultSet rs= vb.dbdenVeriCek("SELECT * FROM makale_degerlendirme.makaleler where makale_kabul_ret_durum IS NULL ");
+	                           
+	                          while(rs.next())
+	                          {
+	                          System.out.print("MAKALE varK");
+	                          %> 
+	                          <tbody>
+									<tr> 
+										<td class="column3"><%=  rs.getString("makale_baslik") %></td>
+										<td class="column4"><%=  rs.getString("makale_konu")%></td>  
+									</tr> 
+	                                 <% 
+	                             }
+						  } 
+                         
                         %> 
                         <table class="table table-bordered">  
 						</tbody>

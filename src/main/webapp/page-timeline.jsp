@@ -59,7 +59,7 @@
                             </div>
 
                             <!-- item-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item">
                                 <p class="notify-details ml-0">
                                     <b>John Doe</b>
                                     <span>New message received</span>
@@ -68,7 +68,7 @@
                             </a>
 
                             <!-- item-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item">
                                 <p class="notify-details ml-0">
                                     <b>Michael Smith</b>
                                     <span>New message received</span>
@@ -77,7 +77,7 @@
                             </a>
 
                             <!-- item-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item">
                                 <p class="notify-details ml-0">
                                     <b>John Lenons</b>
                                     <span>New message received</span>
@@ -86,7 +86,7 @@
                             </a>
 
                             <!-- All-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item notify-all">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item notify-all">
                                 View All Messages
                             </a>
 
@@ -215,9 +215,9 @@
                             </a>
 
                             <!-- item-->
-                            <a href="#" class="dropdown-item notify-item">
+                            <a href="cikis_yap.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-power-off"></i>
-                                <span>Logout</span>
+                                <span>Çıkış Yap</span>
                             </a>
                         </div>
                     </li>
@@ -268,7 +268,7 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="mail-all.jsp">
+                            <a href="yonetici_mail_islemleri.jsp">
                                 <span class="label radius-circle bg-danger float-right">18</span>
                                 <i class="fas fa-envelope"></i>
                                 <span> Mailbox </span>

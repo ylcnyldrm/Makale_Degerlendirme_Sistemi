@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="classes.Veritabanibaglantisi"%>
 <html lang="en">
  <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <head>
-    <title>Nura Admin - UI alerts</title>
-    <meta name="description" content="UI alerts | Nura Admin">
+    <title>Nura Admin - Dashboard</title>
+    <meta name="description" content="Dashboard | Nura Admin">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Your website">
@@ -19,6 +21,11 @@
 
     <!-- Custom CSS -->
     <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- BEGIN CSS for this page -->
+    <link rel="stylesheet" type="text/css" href="assets/plugins/chart.js/Chart.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/plugins/datatables/datatables.min.css" />
+    <!-- END CSS for this page -->
 </head>
 
 <body class="adminbody">
@@ -30,16 +37,15 @@
 
             <!-- LOGO -->
             <div class="headerbar-left">
-                <a href="index.jsp" class="logo">
+                <a href="yonetici_main.jsp" class="logo">
                     <img alt="Logo" src="assets/images/logo.png" />
-                    <span>NURA ADMIN</span>
+                    <span>Yazar</span>
                 </a>
             </div>
-
+ 
             <nav class="navbar-custom">
 
                 <ul class="list-inline float-right mb-0">
-
                     <li class="list-inline-item dropdown notif">
                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" aria-haspopup="false" aria-expanded="false">
                             <i class="far fa-envelope"></i>
@@ -201,20 +207,33 @@
                             <!-- item-->
                             <div class="dropdown-item noti-title">
                                 <h5 class="text-overflow">
-                                    <small>Hello, admin</small>
+                                
+                                <%
+                                String yazarAd="";
+                                String yazarSoyad="";
+                                String yazarTc=(String) session.getAttribute("yazarTc");
+                                System.out.println("YAZAR TC = "+yazarTc);
+                                Veritabanibaglantisi vt = new Veritabanibaglantisi();
+                                ResultSet rs=    vt.dbdenVeriCek("SELECT  makale_yazar_ad,makale_yazar_soyad FROM makale_degerlendirme.makale_yazar where makale_yazar_tc='"+yazarTc+"'");
+                                while(rs.next()){
+                                	yazarAd=rs.getString("makale_yazar_ad");
+                                	yazarSoyad=rs.getString("makale_yazar_soyad");
+                                }
+                                %>
+                                    <small><%=yazarAd%> <%=yazarSoyad%></small>
                                 </h5>
                             </div>
 
                             <!-- item-->
-                            <a href="profile.jsp" class="dropdown-item notify-item">
+                            <a href="yazar_profil.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-user"></i>
-                                <span>Profile</span>
+                                <span>Profil</span>
                             </a>
 
                             <!-- item-->
-                            <a href="#" class="dropdown-item notify-item">
+                            <a href="cikis_yap.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-power-off"></i>
-                                <span>Logout</span>
+                                <span>Çıkış Yap</span>
                             </a>
                         </div>
                     </li>
@@ -242,16 +261,15 @@
                 <div id="sidebar-menu">
 
                     <ul>
-
                         <li class="submenu">
-                            <a href="index.jsp">
+                            <a class="active" href="index.jsp">
                                 <i class="fas fa-bars"></i>
                                 <span> Dashboard </span>
                             </a>
                         </li>
 
                         <li class="submenu">
-                            <a href="users.jsp">
+                            <a href="yonetici_kayit_ekle.jsp">
                                 <i class="fas fa-user"></i>
                                 <span> Users </span>
                             </a>
@@ -309,8 +327,8 @@
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul class="list-unstyled">
-                                <li class="active">
-                                    <a class="active" href="ui-alerts.jsp">Alerts</a>
+                                <li>
+                                    <a href="ui-alerts.jsp">Alerts</a>
                                 </li>
                                 <li>
                                     <a href="ui-buttons.jsp">Buttons</a>
@@ -474,20 +492,21 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
 
-                        <li class="submenu">
-                            <a class="pro" href="pro.jsp">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span> PRO Version </span>
-                            </a>
-                        </li>
+                            <li class="submenu">
+                                <a class="pro" href="pro.jsp">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span> PRO Version </span>
+                                </a>
+                            </li>
 
-                        <li class="submenu">
-                            <a target="_blank" href="https://nura24.com">
-                                <i class="fas fa-th"></i>
-                                <span> Nura24 Free Suite </span>
-                            </a>
+                            <li class="submenu">
+                                <a target="_blank" href="https://nura24.com">
+                                    <i class="fas fa-th"></i>
+                                    <span> Nura24 Free Suite </span>
+                                </a>
+                            </li>
+
                         </li>
 
                     </ul>
@@ -513,144 +532,334 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="breadcrumb-holder">
-                                <h1 class="main-title float-left">Alerts</h1>
+                                <h1 class="main-title float-left">Dashboard</h1>
                                 <ol class="breadcrumb float-right">
                                     <li class="breadcrumb-item">Home</li>
-                                    <li class="breadcrumb-item active">Alerts</li>
+                                    <li class="breadcrumb-item active">Dashboard</li>
                                 </ol>
                                 <div class="clearfix"></div>
+                            </div>
+
+                            <div class="alert alert-warning">
+                                <h6 class="mb-3">You can use the <b>free versions</b> in your personal or commercial projects as long as you keep our footer link and text ("Powered by Bootstrap24.com") in ALL admin template files.</h6>
+                                <h5>Advantages for PRO / EXTENDED version:</h5>
+
+                                <h6 class="mb-3 text-success">
+                                    - Get for FREE dynamic version (PHP version) and save over 50 hours of work. <br>
+                                    - You can remove footer "powered by" credits and add your own company copyright details. <br>
+                                    - With Pro and Extended version you have free support via support tickets. 
+                                </h6>
+                                <a class="btn btn-success" href="pro.jsp">More info</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+                            <div class="card-box noradius noborder bg-danger">
+                                <i class="far fa-user float-right text-white"></i>
+                                <h6 class="text-white text-uppercase m-b-20">Users</h6>
+                                <h1 class="m-b-20 text-white counter">487</h1>
+                                <span class="text-white">12 Today</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+                            <div class="card-box noradius noborder bg-purple">
+                                <i class="fas fa-download float-right text-white"></i>
+                                <h6 class="text-white text-uppercase m-b-20">Downloads</h6>
+                                <h1 class="m-b-20 text-white counter">290</h1>
+                                <span class="text-white">12 Today</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+                            <div class="card-box noradius noborder bg-warning">
+                                <i class="fas fa-shopping-cart float-right text-white"></i>
+                                <h6 class="text-white text-uppercase m-b-20">Orders</h6>
+                                <h1 class="m-b-20 text-white counter">320</h1>
+                                <span class="text-white">25 Today</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+                            <div class="card-box noradius noborder bg-info">
+                                <i class="far fa-envelope float-right text-white"></i>
+                                <h6 class="text-white text-uppercase m-b-20">Messages</h6>
+                                <h1 class="m-b-20 text-white counter">58</h1>
+                                <span class="text-white">5 New</span>
                             </div>
                         </div>
                     </div>
                     <!-- end row -->
 
+
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Alerts examples</h3>
-                                    Alerts are available for any length of text, as well as an optional dismiss button. For proper styling, use one of the eight required contextual classes (e.g.,
-                                    <i>.alert-success</i>). <a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/">(more details)</a>
+                                    <h3><i class="fas fa-chart-bar"></i> Chart 1</h3>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non luctus metus. Vivamus fermentum ultricies orci sit amet sollicitudin.
                                 </div>
 
                                 <div class="card-body">
-
-                                    <div class="alert alert-primary" role="alert">
-                                        This is a primary alert - check it out!
-                                    </div>
-                                    <div class="alert alert-secondary" role="alert">
-                                        This is a secondary alert - check it out!
-                                    </div>
-                                    <div class="alert alert-success" role="alert">
-                                        This is a success alert - check it out!
-                                    </div>
-                                    <div class="alert alert-danger" role="alert">
-                                        This is a danger alert - check it out!
-                                    </div>
-                                    <div class="alert alert-warning" role="alert">
-                                        This is a warning alert - check it out!
-                                    </div>
-                                    <div class="alert alert-info" role="alert">
-                                        This is a info alert - check it out!
-                                    </div>
-                                    <div class="alert alert-light" role="alert">
-                                        This is a light alert - check it out!
-                                    </div>
-                                    <div class="alert alert-dark" role="alert">
-                                        This is a dark alert - check it out!
-                                    </div>
+                                    <canvas id="comboBarLineChart"></canvas>
                                 </div>
+                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                             </div>
                             <!-- end card-->
                         </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Alerts witk links</h3>
-                                    Use the <i>.alert-link</i> utility class to quickly provide matching colored links within any alert. (<a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/#link-color">more
-                                        info</a>)
+                                    <h3><i class="fas fa-chart-bar"></i> Chart 2</h3>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non luctus metus. Vivamus fermentum ultricies orci sit amet sollicitudin.
                                 </div>
 
                                 <div class="card-body">
-
-                                    <div class="alert alert-primary" role="alert">
-                                        This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-secondary" role="alert">
-                                        This is a secondary alert with <a href="#" class="alert-link">an example
-                                            link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-success" role="alert">
-                                        This is a success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-danger" role="alert">
-                                        This is a danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-warning" role="alert">
-                                        This is a warning alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-info" role="alert">
-                                        This is a info alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-light" role="alert">
-                                        This is a light alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-dark" role="alert">
-                                        This is a dark alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-
+                                    <canvas id="barChart"></canvas>
                                 </div>
+                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                             </div>
                             <!-- end card-->
                         </div>
                     </div>
-                    <!-- end row-->
+                    <!-- end row -->
+
+
 
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Aditional content</h3>
-                                    Alerts can also contain additional HTML elements like headings, paragraphs and dividers. <a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/#additional-content">(more
-                                        info)</a>
+                                    <h3><i class="fas fa-history"></i> Tasks progress</h3>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </div>
 
                                 <div class="card-body">
-
-                                    <div class="alert alert-success" role="alert">
-                                        <h4 class="alert-heading">Well done!</h4>
-                                        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-                                        <hr>
-                                        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+                                    <p class="font-600 mb-1">Task completed <span class="text-info pull-right"><b>100%</b></span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
 
+                                    <div class="mb-3"></div>
+
+                                    <p class="font-600 mb-1">Task 1 <span class="text-primary pull-right"><b>95%</b></span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-primary" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="95">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3"></div>
+
+                                    <p class="font-600 mb-1">Task 2 <span class="text-primary pull-right"><b>88%</b></span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-primary" role="progressbar" style="width: 88%" aria-valuenow="88" aria-valuemin="0" aria-valuemax="88">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3"></div>
+
+                                    <p class="font-600 mb-1">Task 3 <span class="text-info pull-right"><b>75%</b></span>
+                                    </p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-info" role="progressbar" style="width: 78%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="75">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3"></div>
+
+                                    <p class="font-600 mb-1">Task 4 <span class="text-info pull-right"><b>70%</b></span>
+                                    </p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-info" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="70">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3"></div>
+
+                                    <p class="font-600 mb-1">Task 5 <span class="text-warning pull-right"><b>68%</b></span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-warning" role="progressbar" style="width: 68%" aria-valuenow="68" aria-valuemin="0" aria-valuemax="68">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3"></div>
+
+                                    <p class="font-600 mb-1">Task 6 <span class="text-warning pull-right"><b>65%</b></span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-warning" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="65">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3"></div>
+
+                                    <p class="font-600 mb-1">Task 7 <span class="text-danger pull-right"><b>55%</b></span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="55">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3"></div>
+
+                                    <p class="font-600 mb-1">Task 8 <span class="text-danger pull-right"><b>40%</b></span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="40">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3"></div>
+
+                                    <p class="font-600 mb-1">Task 9 <span class="text-danger pull-right"><b>20%</b></span></p>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-xs bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="20">
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="card-footer small text-muted">Updated today at 11:59 PM</div>
                             </div>
                             <!-- end card-->
                         </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Dismissing</h3>
-                                    Using the alert JavaScript plugin, it - s possible to dismiss any alert inline. <a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/#dismissing">(more
-                                        info)</a>
+                                    <h3><i class="fas fa-envelope"></i> Latest messages</h3>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </div>
 
                                 <div class="card-body">
 
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                    <div class="widget-messages nicescroll" style="height: 550px;">
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">John Doe</p>
+                                                <p class="message-item-msg">Hello. I want to buy your product</p>
+                                                <p class="message-item-date">11:50 PM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Ashton Cox</p>
+                                                <p class="message-item-msg">Great job for this task</p>
+                                                <p class="message-item-date">14:25 PM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Colleen Hurst</p>
+                                                <p class="message-item-msg">I have a new project for you</p>
+                                                <p class="message-item-date">13:20 PM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Fiona Green</p>
+                                                <p class="message-item-msg">Nice to meet you</p>
+                                                <p class="message-item-date">15:45 PM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Donna Snider</p>
+                                                <p class="message-item-msg">I have a new project for you</p>
+                                                <p class="message-item-date">15:45 AM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Garrett Winters</p>
+                                                <p class="message-item-msg">I have a new project for you</p>
+                                                <p class="message-item-date">15:45 AM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Herrod Chandler</p>
+                                                <p class="message-item-msg">Hello! I'm available for this job</p>
+                                                <p class="message-item-date">15:45 AM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Jena Gaines</p>
+                                                <p class="message-item-msg">I have a new project for you</p>
+                                                <p class="message-item-date">15:45 AM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Airi Satou</p>
+                                                <p class="message-item-msg">I have a new project for you</p>
+                                                <p class="message-item-date">15:45 AM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Brielle Williamson</p>
+                                                <p class="message-item-msg">I have a new project for you</p>
+                                                <p class="message-item-date">15:45 AM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Jena Gaines</p>
+                                                <p class="message-item-msg">I have a new project for you</p>
+                                                <p class="message-item-date">16:30 AM</p>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="message-item">
+                                                <p class="message-item-user">Airi Satou</p>
+                                                <p class="message-item-msg">I have a new project for you</p>
+                                                <p class="message-item-date">18:55 AM</p>
+                                            </div>
+                                        </a>
                                     </div>
 
                                 </div>
+                                <div class="card-footer small text-muted">Updated today at 11:59 PM</div>
                             </div>
                             <!-- end card-->
                         </div>
+
+                        <div class="col-12">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h3><i class="fas fa-user-friends"></i> Users details</h3>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non luctus metus. Vivamus fermentum ultricies orci sit amet sollicitudin.
+                                </div>
+
+                                <div class="card-body">
+
+                                    <div class="table-responsive">
+                                        <table id="dataTable" class="table table-bordered table-hover display" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Office</th>
+                                                    <th>Extn.</th>
+                                                    <th>Date</th>
+                                                    <th>Salary</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <!-- end table-responsive-->
+
+                                </div>
+                                <!-- end card-body-->
+                            </div>
+                            <!-- end card-->
+                        </div>
+
                     </div>
                     <!-- end row-->
 
@@ -664,8 +873,8 @@
         <!-- END content-page -->
 
         <footer class="footer">
-            <span class="text-right">
-                Copyright <a target="_blank" href="#">Your Company</a>
+            <span class="text-right">                
+                Copyright <a target="_blank" href="#">Company</a>
             </span>
             <span class="float-right">
                 <!-- Copyright footer link MUST remain intact if you download free version. -->
@@ -692,6 +901,48 @@
 
     </div>
     <!-- END main -->
+
+    <!-- BEGIN Java Script for this page -->
+    <script src="assets/plugins/chart.js/Chart.min.js"></script>
+    <script src="assets/plugins/datatables/datatables.min.js"></script>
+
+    <!-- Counter-Up-->
+    <script src="assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
+
+    <!-- dataTabled data -->
+    <script src="assets/data/data_datatables.js"></script>
+
+    <!-- Charts data -->
+    <script src="assets/data/data_charts_dashboard.js"></script>
+    <script>
+        $(document).on('ready', function() {
+            // data-tables
+            $('#dataTable').DataTable({
+                data: dataSet,
+                columns: [{
+                    title: "Name"
+                }, {
+                    title: "Position"
+                }, {
+                    title: "Office"
+                }, {
+                    title: "Extn."
+                }, {
+                    title: "Date"
+                }, {
+                    title: "Salary"
+                }]
+            });
+
+            // counter-up
+            $('.counter').counterUp({
+                delay: 10,
+                time: 600
+            });
+        });
+    </script>
+    <!-- END Java Script for this page -->
 
 </body>
 

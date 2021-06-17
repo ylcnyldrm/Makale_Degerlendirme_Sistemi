@@ -1,9 +1,15 @@
 <!DOCTYPE html>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.mysql.cj.protocol.Resultset"%>
+<%@page import="classes.Veritabanibaglantisi"%>
 <html lang="en">
  <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <head>
-    <title>Nura Admin - UI alerts</title>
-    <meta name="description" content="UI alerts | Nura Admin">
+    <title>Nura Admin - Blog</title>
+    <meta name="description" content="Blog posts | Nura Admin">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Your website">
@@ -22,7 +28,7 @@
 </head>
 
 <body class="adminbody">
-
+ 
     <div id="main">
 
         <!-- top bar navigation -->
@@ -30,16 +36,15 @@
 
             <!-- LOGO -->
             <div class="headerbar-left">
-                <a href="index.jsp" class="logo">
+                <a href="yonetici_main.jsp" class="logo">
                     <img alt="Logo" src="assets/images/logo.png" />
-                    <span>NURA ADMIN</span>
+                    <span>Yıldırım Admin</span>
                 </a>
             </div>
 
             <nav class="navbar-custom">
 
                 <ul class="list-inline float-right mb-0">
-
                     <li class="list-inline-item dropdown notif">
                         <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" aria-haspopup="false" aria-expanded="false">
                             <i class="far fa-envelope"></i>
@@ -212,9 +217,9 @@
                             </a>
 
                             <!-- item-->
-                            <a href="#" class="dropdown-item notify-item">
+                            <a href="cikis_yap.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-power-off"></i>
-                                <span>Logout</span>
+                                <span>Çıkış Yap</span>
                             </a>
                         </div>
                     </li>
@@ -244,38 +249,38 @@
                     <ul>
 
                         <li class="submenu">
-                            <a href="index.jsp">
+                            <a href="yonetici_main.jsp">
                                 <i class="fas fa-bars"></i>
                                 <span> Dashboard </span>
                             </a>
                         </li>
 
                         <li class="submenu">
-                            <a href="users.jsp">
+                            <a href="yonetici_kayit_ekle.jsp">
                                 <i class="fas fa-user"></i>
                                 <span> Users </span>
                             </a>
                         </li>
 
                         <li class="submenu">
-                            <a href="blog.jsp">
+                            <a class="active" href="ogretmen_onay_bekleyen.jsp">
                                 <i class="fas fa-file-alt"></i>
-                                <span> Blog </span>
+                                <span>Onay Bekleyen Makaleler</span>
                             </a>
                         </li>
 
                         <li class="submenu">
-                            <a href="yonetici_mail_islemleri.jsp">
-                                <span class="label radius-circle bg-danger float-right">18</span>
+                            <a href="ogretmen_rapor_bekleyen.jsp">
+                                <span class="label radius-circle bg-danger float-right"></span>
                                 <i class="fas fa-envelope"></i>
-                                <span> Mailbox </span>
+                                <span>Rapor Bekleyen Makaleler</span>
                             </a>
                         </li>
 
                         <li class="submenu">
                             <a href="slider.jsp">
                                 <i class="fas fa-photo-video"></i>
-                                <span> Slider </span>
+                                <span>Geçmiş Raporlar</span>
                             </a>
                         </li>
 
@@ -309,8 +314,8 @@
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul class="list-unstyled">
-                                <li class="active">
-                                    <a class="active" href="ui-alerts.jsp">Alerts</a>
+                                <li>
+                                    <a href="ui-alerts.jsp">Alerts</a>
                                 </li>
                                 <li>
                                     <a href="ui-buttons.jsp">Buttons</a>
@@ -490,6 +495,7 @@
                             </a>
                         </li>
 
+
                     </ul>
 
                     <div class="clearfix"></div>
@@ -510,13 +516,14 @@
 
                 <div class="container-fluid">
 
+
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="breadcrumb-holder">
-                                <h1 class="main-title float-left">Alerts</h1>
+                                <h1 class="main-title float-left">Makaleler</h1>
                                 <ol class="breadcrumb float-right">
-                                    <li class="breadcrumb-item">Home</li>
-                                    <li class="breadcrumb-item active">Alerts</li>
+                                    <li class="breadcrumb-item">Ana Sayfa</li>
+                                    <li class="breadcrumb-item active">Makaleler</li>
                                 </ol>
                                 <div class="clearfix"></div>
                             </div>
@@ -524,135 +531,198 @@
                     </div>
                     <!-- end row -->
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Alerts examples</h3>
-                                    Alerts are available for any length of text, as well as an optional dismiss button. For proper styling, use one of the eight required contextual classes (e.g.,
-                                    <i>.alert-success</i>). <a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/">(more details)</a>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div class="alert alert-primary" role="alert">
-                                        This is a primary alert - check it out!
-                                    </div>
-                                    <div class="alert alert-secondary" role="alert">
-                                        This is a secondary alert - check it out!
-                                    </div>
-                                    <div class="alert alert-success" role="alert">
-                                        This is a success alert - check it out!
-                                    </div>
-                                    <div class="alert alert-danger" role="alert">
-                                        This is a danger alert - check it out!
-                                    </div>
-                                    <div class="alert alert-warning" role="alert">
-                                        This is a warning alert - check it out!
-                                    </div>
-                                    <div class="alert alert-info" role="alert">
-                                        This is a info alert - check it out!
-                                    </div>
-                                    <div class="alert alert-light" role="alert">
-                                        This is a light alert - check it out!
-                                    </div>
-                                    <div class="alert alert-dark" role="alert">
-                                        This is a dark alert - check it out!
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end card-->
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Alerts witk links</h3>
-                                    Use the <i>.alert-link</i> utility class to quickly provide matching colored links within any alert. (<a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/#link-color">more
-                                        info</a>)
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div class="alert alert-primary" role="alert">
-                                        This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-secondary" role="alert">
-                                        This is a secondary alert with <a href="#" class="alert-link">an example
-                                            link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-success" role="alert">
-                                        This is a success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-danger" role="alert">
-                                        This is a danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-warning" role="alert">
-                                        This is a warning alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-info" role="alert">
-                                        This is a info alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-light" role="alert">
-                                        This is a light alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-dark" role="alert">
-                                        This is a dark alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- end card-->
-                        </div>
-                    </div>
-                    <!-- end row-->
 
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
                             <div class="card mb-3">
+
                                 <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Aditional content</h3>
-                                    Alerts can also contain additional HTML elements like headings, paragraphs and dividers. <a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/#additional-content">(more
-                                        info)</a>
+                                    <span class="pull-right"><a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus" aria-hidden="true"></i> Add new post</a></span>
+                                    <h3><i class="far fa-file-alt"></i> Makaleler</h3>
                                 </div>
+                                <!-- end card-header -->
 
                                 <div class="card-body">
 
-                                    <div class="alert alert-success" role="alert">
-                                        <h4 class="alert-heading">Well done!</h4>
-                                        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-                                        <hr>
-                                        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="min-width: 300px">Onay Bekleyen Makaleler</th>
+                                                    <th style="width:110px">Category</th>
+                                                    <th style="min-width:110px">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                     <%
+                      Veritabanibaglantisi vt = new Veritabanibaglantisi();
+                      //Makeleler tablosundan ogretmenid si null olanlar gelsin 2 tane geliyor 
+                      int makaleId=0;
+                      int ogretmenId=0;
+                      int ogretmenTc= Integer.parseInt((String)session.getAttribute("ogretmenTc"));
+                      ResultSet rs1=vt.dbdenVeriCek("select ogretmen_id from makale_degerlendirme.ogretmen where ogretmen_tc='"+ogretmenTc+"' ");
+                      while(rs1.next()){
+                    	  ogretmenId=(rs1.getInt("ogretmen_id"));
+                      } 
+                      ResultSet rs =   vt.dbdenVeriCek("SELECT "+
+                    		  "makale_degerlendirme.makaleler.kabul_ret_baslangic_tarih, "+
+                    		  "makale_degerlendirme.makaleler.makale_id, "+
+                    		  "makale_degerlendirme.makale_yazar.makale_yazar_ad, "+
+                    		  "makale_degerlendirme.makale_yazar.makale_yazar_soyad,  "+
+                    		  "makale_degerlendirme.makaleler.makale_yuklenme_tarih, "+
+							  "makale_degerlendirme.makaleler.makale_konu,  "+
+                    		  "makale_degerlendirme.makaleler.makale_baslik  "+
+                    		  "FROM makale_degerlendirme.makale_yazar  "+
+                    		  "INNER JOIN  makale_degerlendirme.makaleler  "+
+                    		  "ON makale_degerlendirme.makaleler.makale_yazar_id = makale_degerlendirme.makale_yazar.makale_yazar_id "+ 
+                    		  "where kabul_veya_ret_tarih IS NULL AND makale_ogretmen_id='"+ogretmenId+"' ");
+                       while(rs.next()){
+                       String tarih= rs.getString("kabul_ret_baslangic_tarih");  
+           			   LocalDate bugun=LocalDate.now(); 
+           			   String currentDate=bugun.toString(); 
+           			   SimpleDateFormat myformat=new SimpleDateFormat("yyyy-MM-dd");
+           		       String bugun2 =currentDate;  
+           		 	   Date kabulRetBaslanhicTarih = myformat.parse(tarih);
+           			   Date secondDate = myformat.parse(bugun2);
+           			   long dif =secondDate.getTime()- kabulRetBaslanhicTarih.getTime();
+           	  		   int daysBetween =(int) (dif/(1000*60*60*24));
+           	  		   System.out.println("KABUL RET BASLANGIÇ TARİH = "+tarih);
+           	  		   System.out.println("bugün = "+bugun2);
+           	  		   System.out.println("GÜN FARKI = "+daysBetween);
+           	  		   if(daysBetween <5){ 
+           	  			 %>
+                         <tr>
+                         <td> 
+                        <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
+                         <h4> <%=rs.getString("makale_baslik") %> </h4>
+                         <p>Posted by <b><%=rs.getString("makale_yazar_ad") %>  <%=rs.getString("makale_yazar_soyad") %></b> <%=rs.getString("makale_yuklenme_tarih") %> </p>
+                         <p><%= rs.getString("makale_konu") %> </p>
+                         </td>
+                         <td>Blog</td> 
+                         <td>    
+                        <a href='FileReadPdf1?id=<%=rs.getString("makale_id")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleyi İncele</a>
+                       
+                        <a href="ogretmen_makale_kabul.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Kabul Et</a>                                                        
+                        <a href="ogretmen_makale_ret.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Reddet</a>   
+                                              
+                         </td>
+                         </tr>
+                           <% 
+  			           }
+  			           else { 
+  			        	 makaleId= rs.getInt("makale_id");
+  			        	 System.out.println("makale id = "+makaleId); 
+  			        	 Boolean b1= vt.execute("update makale_degerlendirme.makaleler set makale_ogretmen_id=NULL, kabul_ret_baslangic_tarih=NULL where makale_id='"+makaleId+"'  ");
+  			        	 if(b1){
+  			        		System.out.println(" SÜRESİ GEÇMİŞ MAKALE GÜNCELLENDİ ");
+  			        	 }
+  			        	 else {
+  			        		System.out.println(" SÜRESİ GEÇMİŞ MAKALE GÜNCELLENEMEDİ ");
+  			        	 }
+  			        	 
+  			           }  
+                     
+                         } 
+                        %>        
+                                               
+                                                <tr>
+                                                    <td>
+                                                        <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
+                                                        <h4> Vivamus condimentum rutrum odio</h4>
+                                                        <p>Posted by <b>Administrator</b> at Nov 29 2018</p>
+                                                        <p>Nulla cursus maximus lacus at efficitur. In lobortis ante vitae nulla semper, in volutpat libero aliquet. Morbi sit amet nibh vitae metus interdum finibus sed nec nisl. Ut quam dolor, bibendum id maximus ut, suscipit consectetur sem.</p>
+                                                    </td>
+
+                                                    <td>Blog</td>
+
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Edit</a>                                                        
+                                                        <a href="#" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Delete</a>                                                        
+                                                    </td>
+                                                </tr>
+                                                
+                                                
+                                                
+                                                
+                                                <tr>
+                                                    <td>
+                                                        <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
+                                                        <h4>Duis scelerisque eros sit amet risus lobortis</h4> 
+                                                        <p>Posted by <b>Administrator</b> at Nov 29 2018</p>
+                                                        <p>Nulla cursus maximus lacus at efficitur. In lobortis ante vitae nulla semper, in volutpat libero aliquet. Morbi sit amet nibh vitae metus interdum finibus sed nec nisl. Ut quam dolor, bibendum id maximus ut, suscipit consectetur sem.</p>
+                                                    </td>
+
+                                                    <td>Blog</td>
+
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Edit</a>                                                        
+                                                        <a href="#" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Delete</a>                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
+                                                        <h4>Vestibulum justo et feugiat consectetur</h4>
+                                                        <p>Posted by <b>Administrator</b> at Nov 29 2018</p>
+                                                        <p>Nulla cursus maximus lacus at efficitur. In lobortis ante vitae nulla semper, in volutpat libero aliquet. Morbi sit amet nibh vitae metus interdum finibus sed nec nisl. Ut quam dolor, bibendum id maximus ut, suscipit consectetur sem.</p>
+                                                    </td>
+
+                                                    <td>News</td>
+
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Edit</a>                                                        
+                                                        <a href="#" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Delete</a>                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
+                                                        <h4>Quisque ac justo porttitor mi egestas fermentum</h4> 
+                                                        <p>Posted by <b>Administrator</b> at Nov 29 2018</p>
+                                                        <p>Nulla cursus maximus lacus at efficitur. In lobortis ante vitae nulla semper, in volutpat libero aliquet. Morbi sit amet nibh vitae metus interdum finibus sed nec nisl. Ut quam dolor, bibendum id maximus ut, suscipit consectetur sem.</p>
+                                                    </td>
+
+                                                    <td>News</td>
+
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Edit</a>                                                        
+                                                        <a href="#" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Delete</a>                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" style="max-width:180px; height:auto;" src="https://via.placeholder.com/180x120" /></div>
+                                                        <h4>Aenean vehicula erat id mauris porttitor</h4> 
+                                                        <p>Posted by <b>Administrator</b> at Nov 29 2018</p>
+                                                        <p>Nulla cursus maximus lacus at efficitur. In lobortis ante vitae nulla semper, in volutpat libero aliquet. Morbi sit amet nibh vitae metus interdum finibus sed nec nisl. Ut quam dolor, bibendum id maximus ut, suscipit consectetur sem.</p>
+                                                    </td>
+
+                                                    <td>News</td>
+
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Edit</a>                                                        
+                                                        <a href="#" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Delete</a>                                                        
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
 
+
                                 </div>
+                                <!-- end card-body -->
+
                             </div>
-                            <!-- end card-->
+                            <!-- end card -->
+
                         </div>
+                        <!-- end col -->
 
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Dismissing</h3>
-                                    Using the alert JavaScript plugin, it - s possible to dismiss any alert inline. <a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/#dismissing">(more
-                                        info)</a>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- end card-->
-                        </div>
                     </div>
-                    <!-- end row-->
+                    <!-- end row -->
 
                 </div>
                 <!-- END container-fluid -->
@@ -674,6 +744,8 @@
                 Powered by <a target="_blank" href="https://bootstrap24.com" title="Download free Bootstrap templates"><b>Bootstrap24.com</b></a>
             </span>
         </footer>
+        
+        
 
         <script src="assets/js/modernizr.min.js"></script>
         <script src="assets/js/jquery.min.js"></script>
@@ -692,7 +764,7 @@
 
     </div>
     <!-- END main -->
-
+ 
 </body>
 
 </html>

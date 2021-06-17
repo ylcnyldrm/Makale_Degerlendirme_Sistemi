@@ -57,7 +57,7 @@
                             </div>
 
                             <!-- item-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item">
                                 <p class="notify-details ml-0">
                                     <b>John Doe</b>
                                     <span>New message received</span>
@@ -66,7 +66,7 @@
                             </a>
 
                             <!-- item-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item">
                                 <p class="notify-details ml-0">
                                     <b>Michael Smith</b>
                                     <span>New message received</span>
@@ -75,7 +75,7 @@
                             </a>
 
                             <!-- item-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item">
                                 <p class="notify-details ml-0">
                                     <b>John Lenons</b>
                                     <span>New message received</span>
@@ -84,7 +84,7 @@
                             </a>
 
                             <!-- All-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item notify-all">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item notify-all">
                                 View All Messages
                             </a>
 
@@ -266,7 +266,7 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="mail-all.jsp">
+                            <a href="yonetici_mail_islemleri.jsp">
                                 <span class="label radius-circle bg-danger float-right">18</span>
                                 <i class="fas fa-envelope"></i>
                                 <span> Mailbox </span>

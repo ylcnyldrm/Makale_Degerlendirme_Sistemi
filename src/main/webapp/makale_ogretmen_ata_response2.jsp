@@ -70,9 +70,7 @@
 	    	        }
 
 	    	    });
-	    	   
-	    	  
-
+	    	    
 	      // -- Create a new message --
 	         Message msg = new MimeMessage(mailSession);
 	  

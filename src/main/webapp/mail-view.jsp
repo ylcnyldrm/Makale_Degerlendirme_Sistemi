@@ -132,7 +132,7 @@
                             </a>
 
                             <!-- All-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item notify-all">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item notify-all">
                                 View All Messages
                             </a>
 
@@ -261,9 +261,9 @@
                             </a>
 
                             <!-- item-->
-                            <a href="#" class="dropdown-item notify-item">
+                            <a href="cikis_yap.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-power-off"></i>
-                                <span>Logout</span>
+                                <span>Çıkış Yap</span>
                             </a>
                         </div>
                     </li>
@@ -336,7 +336,7 @@
                             </a>
                             <ul class="list-unstyled">
                                 <li>
-                                    <a href="mail-all.jsp">Inbox</a>
+                                    <a href="yonetici_mail_islemleri.jsp">Inbox</a>
                                 </li>
                                 <li class="active">
                                     <a class="active" href="mail-view.jsp">Email view</a>
@@ -589,7 +589,7 @@
                                 <h1 class="main-title float-left">Message Details</h1>
                                 <ol class="breadcrumb float-right">
                                     <li class="breadcrumb-item">Home</li>
-                                    <li class="breadcrumb-item"><a href="mail-all.jsp">Inbox</a></li>
+                                    <li class="breadcrumb-item"><a href="yonetici_mail_islemleri.jsp">Inbox</a></li>
                                     <li class="breadcrumb-item active">Message Details</li>
                                 </ol>
                                 <div class="clearfix"></div>

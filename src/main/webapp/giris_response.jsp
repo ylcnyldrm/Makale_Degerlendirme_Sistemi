@@ -1,4 +1,7 @@
- <%@page import="classes.Veritabanibaglantisi"%>
+ <%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="classes.Veritabanibaglantisi"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
  
 <%@page import="java.sql.SQLException"%>
@@ -13,6 +16,7 @@
 <body>
  
   <%
+   
    Veritabanibaglantisi vt = new Veritabanibaglantisi();
    
    String tc=request.getParameter("tc");
@@ -31,9 +35,27 @@
 			    	
 			    	//makale yazar giriş
 			    	if(  Integer.parseInt(rs.getString("giris_turu"))==0){
-			    		 System.out.print("Bağlantı başarılı userName = "+tc+"sifre= "+sifre);  
-			    		 session.setAttribute("yazarTc", rs.getString("tc"));
-				    	  response.sendRedirect("yazar_makale_ekleme.jsp");
+			    		 System.out.print("Bağlantı başarılı tc = "+tc+"sifre= "+sifre);   
+			    		  ResultSet rs1=vt.dbdenVeriCek("SELECT makale_yazar_kayit_tarih FROM makale_degerlendirme.makale_yazar where makale_yazar_tc='"+tc+"' ");
+			    		  rs1.next();
+			    		  String kullaniciKayitTarih= rs1.getString("makale_yazar_kayit_tarih"); 
+			    		  LocalDate today=LocalDate.now(); 
+						  String currentDate=today.toString(); 
+						  SimpleDateFormat myformat=new SimpleDateFormat("yyyy-MM-dd");
+					      String secondDate1 =currentDate;  
+					 	   Date firstDate = myformat.parse(kullaniciKayitTarih);
+						   Date secondDate = myformat.parse(secondDate1);
+						   long dif =  secondDate.getTime()-firstDate.getTime();
+				  		   int daysBetween =(int) (dif/(1000*60*60*24));
+				  		  System.out.print("GÜN FARKI = "+daysBetween); 
+						   if(daysBetween <60){ 
+							      session.setAttribute("yazarTc", rs.getString("tc"));
+						    	  response.sendRedirect("yazar_main.jsp");  
+						   }
+						   else { 
+							     session.setAttribute("yazarTc", rs.getString("tc"));
+							     response.sendRedirect("yazar_profil.jsp");
+						   } 
 				    	    
 			    	}
 			    	//ogretmen giriş

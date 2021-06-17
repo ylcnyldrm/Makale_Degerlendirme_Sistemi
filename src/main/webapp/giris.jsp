@@ -63,7 +63,7 @@
 						</div>
 					</div>
 					<div class="text-center p-t-115">
-						<a class="txt2" href="kullanici_kayit.jsp">
+						<a class="txt2" href="yazar_kayit.jsp">
 							Kayıt Ol
 						</a>
 					</div>

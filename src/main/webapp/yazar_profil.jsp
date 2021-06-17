@@ -2,8 +2,8 @@
 <html lang="en">
  <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <head>
-    <title>Nura Admin - UI alerts</title>
-    <meta name="description" content="UI alerts | Nura Admin">
+    <title>Nura Admin - My profile</title>
+    <meta name="description" content="My profile | Nura Admin">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Your website">
@@ -19,6 +19,7 @@
 
     <!-- Custom CSS -->
     <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body class="adminbody">
@@ -206,15 +207,15 @@
                             </div>
 
                             <!-- item-->
-                            <a href="profile.jsp" class="dropdown-item notify-item">
+                            <a href="yazar_profil_response.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-user"></i>
-                                <span>Profile</span>
+                                <span>Profil</span>
                             </a>
 
                             <!-- item-->
-                            <a href="#" class="dropdown-item notify-item">
+                            <a href="cikis_yap.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-power-off"></i>
-                                <span>Logout</span>
+                                <span>Çıkış Yap</span>
                             </a>
                         </div>
                     </li>
@@ -309,8 +310,8 @@
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul class="list-unstyled">
-                                <li class="active">
-                                    <a class="active" href="ui-alerts.jsp">Alerts</a>
+                                <li>
+                                    <a href="ui-alerts.jsp">Alerts</a>
                                 </li>
                                 <li>
                                     <a href="ui-buttons.jsp">Buttons</a>
@@ -510,13 +511,14 @@
 
                 <div class="container-fluid">
 
+
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="breadcrumb-holder">
-                                <h1 class="main-title float-left">Alerts</h1>
+                                <h1 class="main-title float-left">Profilim</h1>
                                 <ol class="breadcrumb float-right">
-                                    <li class="breadcrumb-item">Home</li>
-                                    <li class="breadcrumb-item active">Alerts</li>
+                                    <li class="breadcrumb-item">Ana Sayfa</li>
+                                    <li class="breadcrumb-item active">Profil</li>
                                 </ol>
                                 <div class="clearfix"></div>
                             </div>
@@ -525,134 +527,90 @@
                     <!-- end row -->
 
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 col-xl-9">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Alerts examples</h3>
-                                    Alerts are available for any length of text, as well as an optional dismiss button. For proper styling, use one of the eight required contextual classes (e.g.,
-                                    <i>.alert-success</i>). <a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/">(more details)</a>
+                                    <h3><i class="far fa-user"></i> Profil Ayarları</h3>
                                 </div>
 
                                 <div class="card-body">
+ 
+                                    <form action="yazar_profil_response.jsp" method="post" >
+ 
+                                       <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Eski Şifre (Zorunlu)</label>
+                                                    <input class="form-control" name="eskiSifre" type="password" required />
+                                                </div>
+                                            </div>
 
-                                    <div class="alert alert-primary" role="alert">
-                                        This is a primary alert - check it out!
-                                    </div>
-                                    <div class="alert alert-secondary" role="alert">
-                                        This is a secondary alert - check it out!
-                                    </div>
-                                    <div class="alert alert-success" role="alert">
-                                        This is a success alert - check it out!
-                                    </div>
-                                    <div class="alert alert-danger" role="alert">
-                                        This is a danger alert - check it out!
-                                    </div>
-                                    <div class="alert alert-warning" role="alert">
-                                        This is a warning alert - check it out!
-                                    </div>
-                                    <div class="alert alert-info" role="alert">
-                                        This is a info alert - check it out!
-                                    </div>
-                                    <div class="alert alert-light" role="alert">
-                                        This is a light alert - check it out!
-                                    </div>
-                                    <div class="alert alert-dark" role="alert">
-                                        This is a dark alert - check it out!
-                                    </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Yeni Şifre (Zorunlu)</label>
+                                                    <input class="form-control" name="yeniSifre" type="password" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <hr>
+                                                <button type="submit" class="btn btn-primary">Profili Güncelle</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
                                 </div>
-                            </div>
-                            <!-- end card-->
-                        </div>
+                                <!-- end card-body -->
 
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            </div>
+                            <!-- end card -->
+
+                        </div>
+                        <!-- end col -->
+
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Alerts witk links</h3>
-                                    Use the <i>.alert-link</i> utility class to quickly provide matching colored links within any alert. (<a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/#link-color">more
-                                        info</a>)
+                                    <h3><i class="far fa-file-image"></i> Avatar</h3>
                                 </div>
 
-                                <div class="card-body">
+                                <div class="card-body text-center">
 
-                                    <div class="alert alert-primary" role="alert">
-                                        This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <img alt="avatar" class="img-fluid" src="assets/images/avatars/avatar.png">
+                                        </div>
                                     </div>
-                                    <div class="alert alert-secondary" role="alert">
-                                        This is a secondary alert with <a href="#" class="alert-link">an example
-                                            link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-success" role="alert">
-                                        This is a success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-danger" role="alert">
-                                        This is a danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-warning" role="alert">
-                                        This is a warning alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-info" role="alert">
-                                        This is a info alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-light" role="alert">
-                                        This is a light alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-                                    </div>
-                                    <div class="alert alert-dark" role="alert">
-                                        This is a dark alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <button type="button" class="btn btn-danger btn-block mt-3">Delete avatar</button>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <button type="button" class="btn btn-info btn-block mt-3">Change avatar</button>
+                                        </div>
                                     </div>
 
                                 </div>
+                                <!-- end card-body -->
+
                             </div>
-                            <!-- end card-->
+                            <!-- end card -->
+
                         </div>
+                        <!-- end col -->
+
+
                     </div>
-                    <!-- end row-->
+                    <!-- end row -->
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Aditional content</h3>
-                                    Alerts can also contain additional HTML elements like headings, paragraphs and dividers. <a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/#additional-content">(more
-                                        info)</a>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div class="alert alert-success" role="alert">
-                                        <h4 class="alert-heading">Well done!</h4>
-                                        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-                                        <hr>
-                                        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- end card-->
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <h3><i class="fas fa-bell"></i> Dismissing</h3>
-                                    Using the alert JavaScript plugin, it - s possible to dismiss any alert inline. <a target="_blank" href="https://getbootstrap.com/docs/4.3/components/alerts/#dismissing">(more
-                                        info)</a>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- end card-->
-                        </div>
-                    </div>
-                    <!-- end row-->
 
                 </div>
                 <!-- END container-fluid -->

@@ -28,26 +28,7 @@
 </head>
 
 <body class="adminbody">
-
-
- <%
- Veritabanibaglantisi vt1 = new Veritabanibaglantisi();
- int ogretmenId1=0;
- int ogretmenTc1= Integer.parseInt((String)session.getAttribute("ogretmenTc"));
- ResultSet rs2=vt1.dbdenVeriCek("select ogretmen_id from makale_degerlendirme.ogretmen where ogretmen_tc='"+ogretmenTc1+"' ");
- while(rs2.next()){
-	  ogretmenId1=(rs2.getInt("ogretmen_id"));
- } 
-
-ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_degerlendirme.makaleler where makale_ogretmen_id='"+ogretmenId1+"' ");
-   while(rs3.next()){
-		
-	}
-
- %>
-     
-
-
+ 
     <div id="main">
 
         <!-- top bar navigation -->
@@ -80,7 +61,7 @@ ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_dege
                             </div>
 
                             <!-- item-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item">
                                 <p class="notify-details ml-0">
                                     <b>John Doe</b>
                                     <span>New message received</span>
@@ -89,7 +70,7 @@ ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_dege
                             </a>
 
                             <!-- item-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item">
                                 <p class="notify-details ml-0">
                                     <b>Michael Smith</b>
                                     <span>New message received</span>
@@ -98,7 +79,7 @@ ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_dege
                             </a>
 
                             <!-- item-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item">
                                 <p class="notify-details ml-0">
                                     <b>John Lenons</b>
                                     <span>New message received</span>
@@ -107,7 +88,7 @@ ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_dege
                             </a>
 
                             <!-- All-->
-                            <a href="mail-all.jsp" class="dropdown-item notify-item notify-all">
+                            <a href="yonetici_mail_islemleri.jsp" class="dropdown-item notify-item notify-all">
                                 View All Messages
                             </a>
 
@@ -236,9 +217,9 @@ ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_dege
                             </a>
 
                             <!-- item-->
-                            <a href="#" class="dropdown-item notify-item">
+                            <a href="cikis_yap.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-power-off"></i>
-                                <span>Logout</span>
+                                <span>Çıkış Yap</span>
                             </a>
                         </div>
                     </li>
@@ -282,24 +263,24 @@ ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_dege
                         </li>
 
                         <li class="submenu">
-                            <a class="active" href="blog.jsp">
+                            <a class="active" href="ogretmen_main.jsp">
                                 <i class="fas fa-file-alt"></i>
-                                <span> Blog </span>
+                                <span>Onay Bekleyen Makaleler</span>
                             </a>
                         </li>
 
                         <li class="submenu">
-                            <a href="mail-all.jsp">
-                                <span class="label radius-circle bg-danger float-right">18</span>
+                            <a href="yonetici_mail_islemleri.jsp">
+                                <span class="label radius-circle bg-danger float-right"></span>
                                 <i class="fas fa-envelope"></i>
-                                <span> Mailbox </span>
+                                <span>Rapor Bekleyen Makaleler</span>
                             </a>
                         </li>
 
                         <li class="submenu">
                             <a href="slider.jsp">
                                 <i class="fas fa-photo-video"></i>
-                                <span> Slider </span>
+                                <span>Geçmiş Raporlar</span>
                             </a>
                         </li>
 
@@ -645,28 +626,7 @@ ResultSet rs3  =  vt1.dbdenVeriCek("select kabul_veya_ret_tarih from makale_dege
   			           }  
                      
                          } 
-                        %>         
-                        
-                      <%--   
-                          <%
-                      Veritabanibaglantisi vt = new Veritabanibaglantisi();
-                      //Makeleler tablosundan ogretmenid si null olanlar gelsin 2 tane geliyor
-                      int makaleId=0;
-                      ResultSet rs =   vt.dbdenVeriCek("SELECT * FROM makale_degerlendirme.book");
-                      while(rs.next()){  
-                        %>
-                        <tr>
-                        <td>
-                      
-                      
-                        <a href='FileReadPdf?id=<%=rs.getString("bookId")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleyi İncele</a>                                                       
-                    
-                                             
-                        </td>
-                        </tr>
-                          <%
-                         } 
-                        %>    --%>
+                        %>        
                                                
                                                 <tr>
                                                     <td>

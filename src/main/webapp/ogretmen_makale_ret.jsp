@@ -16,9 +16,11 @@ Veritabanibaglantisi vt =new Veritabanibaglantisi();
 Boolean b= vt.execute("update makale_degerlendirme.makaleler set makale_ogretmen_id=NULL, kabul_ret_baslangic_tarih=NULL where makale_id='"+makaleId+"'  ");
 if(b){
 	System.out.print("MAKALE REDDEDİLME İŞLEMİ BAŞARILI");
+	response.sendRedirect("ogretmen_main.jsp");
 }
 else {
 	System.out.print("MAKALE REDDEDİLME İŞLEMİ BAŞARISIZ");
+	response.sendRedirect("ogretmen_main.jsp");
 }
 %>
 </body>

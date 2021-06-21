@@ -48,7 +48,7 @@ while(rs.next()){
       props.put("mail.store.protocol", "pop3");
       props.put("mail.transport.protocol", "smtp");
       final String username = "yalcinylde@gmail.com";//
-      final String password = "Ankara.1";
+      final String password = "";
       try{
    	   
    	   Session mailSession = Session.getInstance(props, new javax.mail.Authenticator() {

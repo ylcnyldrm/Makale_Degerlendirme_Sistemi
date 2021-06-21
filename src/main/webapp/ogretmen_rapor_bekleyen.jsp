@@ -539,8 +539,7 @@
                             <div class="card mb-3">
 
                                 <div class="card-header">
-                                    <span class="pull-right"><a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus" aria-hidden="true"></i> Add new post</a></span>
-                                    <h3><i class="far fa-file-alt"></i> Makaleler</h3>
+                                     <h3><i class="far fa-file-alt"></i> Makaleler</h3>
                                 </div>
                                 <!-- end card-header -->
 
@@ -550,7 +549,7 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th style="min-width: 300px">Onay Bekleyen Makaleler</th>
+                                                    <th style="min-width: 300px">Rapor Bekleyen Makaleler</th>
                                                     <th style="width:110px">Category</th>
                                                     <th style="min-width:110px">Actions</th>
                                                 </tr>
@@ -567,20 +566,22 @@
                       while(rs1.next()){
                     	  ogretmenId=(rs1.getInt("ogretmen_id"));
                       } 
-                      ResultSet rs =   vt.dbdenVeriCek("SELECT "+
-                    		  "makale_degerlendirme.makaleler.kabul_ret_baslangic_tarih, "+
+                      ResultSet rs =   vt.dbdenVeriCek("SELECT makale_degerlendirme.makaleler.kabul_ret_baslangic_tarih, "+
                     		  "makale_degerlendirme.makaleler.makale_id, "+
                     		  "makale_degerlendirme.makale_yazar.makale_yazar_ad, "+
                     		  "makale_degerlendirme.makale_yazar.makale_yazar_soyad,  "+
                     		  "makale_degerlendirme.makaleler.makale_yuklenme_tarih, "+
+                    		   "makale_degerlendirme.makaleler.kabul_veya_ret_tarih, "+
+                              " makale_degerlendirme.makaleler.makale_kabul_ret_durum, "+
 							  "makale_degerlendirme.makaleler.makale_konu,  "+
                     		  "makale_degerlendirme.makaleler.makale_baslik  "+
                     		  "FROM makale_degerlendirme.makale_yazar  "+
                     		  "INNER JOIN  makale_degerlendirme.makaleler  "+
-                    		  "ON makale_degerlendirme.makaleler.makale_yazar_id = makale_degerlendirme.makale_yazar.makale_yazar_id "+ 
-                    		  "where kabul_veya_ret_tarih IS NULL AND makale_ogretmen_id='"+ogretmenId+"' ");
+                    		  "ON makale_degerlendirme.makaleler.makale_yazar_id = makale_degerlendirme.makale_yazar.makale_yazar_id "+
+                    		  "where   makale_ogretmen_id='"+ogretmenId+"' AND makale_kabul_ret_durum='"+"KABUL EDİLDİ"+"' "+
+                    		   "AND makale_rapor_tarih IS NULL       ");
                        while(rs.next()){
-                       String tarih= rs.getString("kabul_ret_baslangic_tarih");  
+                       String tarih= rs.getString("kabul_veya_ret_tarih");  
            			   LocalDate bugun=LocalDate.now(); 
            			   String currentDate=bugun.toString(); 
            			   SimpleDateFormat myformat=new SimpleDateFormat("yyyy-MM-dd");
@@ -592,7 +593,7 @@
            	  		   System.out.println("KABUL RET BASLANGIÇ TARİH = "+tarih);
            	  		   System.out.println("bugün = "+bugun2);
            	  		   System.out.println("GÜN FARKI = "+daysBetween);
-           	  		   if(daysBetween <5){ 
+           	  		   if(daysBetween <21){ 
            	  			 %>
                          <tr>
                          <td> 
@@ -605,15 +606,14 @@
                          <td>    
                         <a href='FileReadPdf1?id=<%=rs.getString("makale_id")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleyi İncele</a>
                        
-                        <a href="ogretmen_makale_kabul.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Kabul Et</a>                                                        
-                        <a href="ogretmen_makale_ret.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-danger btn-sm btn-block mt-2"><i class="fas fa-trash"></i> Reddet</a>   
-                                              
+                        <a href="ogretmen_rapor_yukle.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Rapor Yükle</a>                                                        
+                          
                          </td>
                          </tr>
                            <% 
   			           }
   			           else { 
-  			        	 makaleId= rs.getInt("makale_id");
+  			        	/*  makaleId= rs.getInt("makale_id");
   			        	 System.out.println("makale id = "+makaleId); 
   			        	 Boolean b1= vt.execute("update makale_degerlendirme.makaleler set makale_ogretmen_id=NULL, kabul_ret_baslangic_tarih=NULL where makale_id='"+makaleId+"'  ");
   			        	 if(b1){
@@ -621,7 +621,7 @@
   			        	 }
   			        	 else {
   			        		System.out.println(" SÜRESİ GEÇMİŞ MAKALE GÜNCELLENEMEDİ ");
-  			        	 }
+  			        	 } */
   			        	 
   			           }  
                      

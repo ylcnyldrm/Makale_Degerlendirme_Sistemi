@@ -270,7 +270,7 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="yonetici_mail_islemleri.jsp">
+                            <a href="ogretmen_rapor_bekleyen.jsp">
                                 <span class="label radius-circle bg-danger float-right"></span>
                                 <i class="fas fa-envelope"></i>
                                 <span>Rapor Bekleyen Makaleler</span>
@@ -539,7 +539,6 @@
                             <div class="card mb-3">
 
                                 <div class="card-header">
-                                    <span class="pull-right"><a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus" aria-hidden="true"></i> Add new post</a></span>
                                     <h3><i class="far fa-file-alt"></i> Makaleler</h3>
                                 </div>
                                 <!-- end card-header -->

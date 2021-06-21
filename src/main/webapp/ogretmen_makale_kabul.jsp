@@ -17,9 +17,12 @@ Veritabanibaglantisi vt =new Veritabanibaglantisi();
 Boolean b =vt.execute("update makale_degerlendirme.makaleler set kabul_veya_ret_tarih='"+bugun+"', makale_kabul_ret_durum='"+"KABUL EDİLDİ"+"' where makale_id='"+makaleId+"' ");
 if(b){
 	System.out.print("MAKALE KABUL EDİLME İŞLEMİ BAŞARILI");
+	response.sendRedirect("ogretmen_main.jsp");
+	
 }
 else {
 	System.out.print("MAKALE KABUL EDİLME İŞLEMİ BAŞARISIZ");
+	response.sendRedirect("ogretmen_main.jsp");
 }
 
 %>

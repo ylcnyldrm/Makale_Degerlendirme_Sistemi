@@ -31,13 +31,16 @@ public class FileUploadPdf1 extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
     protected void doPost(HttpServletRequest request,  HttpServletResponse response)       throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
- 
+     
+      
         final Part filePart = request.getPart("file"); 
- 
+        String makaleAd=request.getParameter("makaleAd");
+        String makaleIcerik=request.getParameter("makaleIcerik");
+        System.out.print("makale ad "+makaleAd+"makaleIcerik"+makaleIcerik);
         InputStream pdfFileBytes = null;
-        final PrintWriter writer = response.getWriter();
- 
+        final PrintWriter writer = response.getWriter(); 
+        request.setCharacterEncoding("UTF-8"); 
+        response.setContentType("text/html; charset=utf-8");
         try {
  
           if (!filePart.getContentType().equals("application/pdf"))
@@ -87,9 +90,9 @@ public class FileUploadPdf1 extends HttpServlet {
                 System.out.print("GELEN YAZAR ÝD "+yazarId);
                  
                 PreparedStatement pstmt = con.prepareStatement("insert into makale_degerlendirme.makaleler (makale_konu,makale_pdf,makale_yazar_id,kabul_ret_baslangic_tarih,"+
-             		     "kabul_veya_ret_tarih,makale_ogretmen_id,makale_kabul_ret_durum,makale_yuklenme_tarih,makale_baslik) values (?,?,?,?,?,?,?,?,?) ");
+             		     "kabul_veya_ret_tarih,makale_ogretmen_id,makale_kabul_ret_durum,makale_yuklenme_tarih,makale_baslik,makale_rapor_tarih) values (?,?,?,?,?,?,?,?,?,?) ");
                 
-               pstmt.setString(1,"konu");
+               pstmt.setString(1,makaleIcerik);
                pstmt.setBytes(2, bytes);
                pstmt.setInt(3, yazarId);
                pstmt.setString(4, null);
@@ -97,12 +100,13 @@ public class FileUploadPdf1 extends HttpServlet {
                pstmt.setString(6, null);
                pstmt.setString(7, null);
                pstmt.setString(8, date.toString());
-               pstmt.setString(9, "baslik");
+               pstmt.setString(9, makaleAd);
+               pstmt.setString(10, null);
                 
                 success = pstmt.executeUpdate();
                 if(success>=1)  System.out.println("Book Stored");
                  con.close(); 
- 
+                 response.sendRedirect("yazar_main.jsp");
                  writer.println("<br/> Book Successfully Stored");
  
         } catch (FileNotFoundException fnf) {

@@ -26,11 +26,9 @@
     </head>
     <body>
     <%
-    String yazarTc=(String) session.getAttribute("yazarTc");
-    System.out.println("YAZAR TC = "+yazarTc);
+    int makaleId= Integer.parseInt(request.getParameter("makale_id")); 
     %>
-    
-    
+     
     <form method="POST" action="FileUpload1" enctype="multipart/form-data" >
 
       <div class="modal-body" >

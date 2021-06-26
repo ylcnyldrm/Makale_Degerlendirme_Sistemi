@@ -566,7 +566,7 @@
                       while(rs1.next()){
                     	  ogretmenId=(rs1.getInt("ogretmen_id"));
                       } 
-                      ResultSet rs =   vt.dbdenVeriCek("SELECT "+
+                      ResultSet rs = vt.dbdenVeriCek("SELECT "+
                     		  "makale_degerlendirme.makaleler.kabul_ret_baslangic_tarih, "+
                     		  "makale_degerlendirme.makaleler.makale_id, "+
                     		  "makale_degerlendirme.makale_yazar.makale_yazar_ad, "+

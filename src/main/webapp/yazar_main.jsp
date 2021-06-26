@@ -221,13 +221,13 @@
                             </div>
 
                             <!-- item-->
-                            <a href="profile.jsp" class="dropdown-item notify-item">
+                            <a href="yazar_profil.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-user"></i>
                                 <span>Profile</span>
                             </a>
 
                             <!-- item-->
-                            <a href="#" class="dropdown-item notify-item">
+                            <a href="giris.jsp" class="dropdown-item notify-item">
                                 <i class="fas fa-power-off"></i>
                                 <span>Logout</span>
                             </a>

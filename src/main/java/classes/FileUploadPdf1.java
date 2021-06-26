@@ -1,6 +1,6 @@
 package classes;
  
-import java.io.FileNotFoundException;
+import java.io.FileNotFoundException; 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -86,8 +86,7 @@ public class FileUploadPdf1 extends HttpServlet {
                 while(rs.next()) { 
                 	yazarId=Integer.parseInt( rs.getString("makale_yazar_id"));  
                  
-                 }
-                System.out.print("GELEN YAZAR ÝD "+yazarId);
+                 } 
                  
                 PreparedStatement pstmt = con.prepareStatement("insert into makale_degerlendirme.makaleler (makale_konu,makale_pdf,makale_yazar_id,kabul_ret_baslangic_tarih,"+
              		     "kabul_veya_ret_tarih,makale_ogretmen_id,makale_kabul_ret_durum,makale_yuklenme_tarih,makale_baslik,makale_rapor_tarih) values (?,?,?,?,?,?,?,?,?,?) ");

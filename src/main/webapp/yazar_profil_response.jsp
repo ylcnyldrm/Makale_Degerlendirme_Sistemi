@@ -13,12 +13,8 @@
 <%  
    Veritabanibaglantisi vt = new Veritabanibaglantisi();
    String yazarTc=(String) session.getAttribute("yazarTc");  
-   
    String eskiSifre=request.getParameter("eskiSifre");
    String yeniSifre=request.getParameter("yeniSifre");
-   System.out.print("ESKİ SİFRE "+eskiSifre);
-   System.out.print("YENİ ŞİFRE"+yeniSifre); 
-  
    LocalDate startDate = LocalDate.now(); 
    int ozelKarakterSayisi = 0;   
    for (int i = 0; i < yeniSifre.length(); i++) {
@@ -26,7 +22,6 @@
     	   ozelKarakterSayisi++;
        } 
     } 
-   
    if(eskiSifre!=null & yeniSifre!=null)
    {    
 	   if (yeniSifre.length()>=5 && ozelKarakterSayisi>=3  ){ 
@@ -36,7 +31,7 @@
 			   if (rs1.getString(1).equals(eskiSifre)){
 				   Boolean b= vt.execute("update makale_degerlendirme.giris  set sifre='"+yeniSifre.toString()+"' where tc='"+yazarTc+"'  ");   
 				   if(b){
-						  response.sendRedirect("yazar_main.jsp"); 
+					response.sendRedirect("yazar_main.jsp"); 
 					System.out.print("GÜNCELLEME İŞLEMİ BAŞARILI"); 
 				   }else {
 					   System.out.print("GÜNCELLEME İŞLEMİ BAŞARISIZ"); 
@@ -46,16 +41,13 @@
 				   out.print("ESKİ ŞİFRENİZ DOĞRU DEĞİLDİR.");
 			   }   
 		   }catch(SQLException e){
-			   
-				System.out.print("e"+e); 
+			System.out.print("e"+e); 
 		   }
 		   vt.baglantiyiKes();  
 	   }
-	 
-   }  
+	    }  
    else {
-	   
-		System.out.print("NULL GELDİ DEĞERLER "); 
+	 System.out.print("NULL GELDİ DEĞERLER "); 
    }
    %> 
 </body>

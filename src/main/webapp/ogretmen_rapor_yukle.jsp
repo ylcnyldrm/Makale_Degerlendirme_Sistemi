@@ -10,34 +10,31 @@
 </head>
 <body>
 
-<%
-LocalDate today=LocalDate.now(); 
-Veritabanibaglantisi vt = new Veritabanibaglantisi();
-String ogretmenTc=(String) session.getAttribute("ogretmenTc");
-int ogretmenId=0;
-ResultSet rs = vt.dbdenVeriCek("SELECT ogretmen_id FROM makale_degerlendirme.ogretmen where ogretmen_tc='"+ogretmenTc+"' ");
-while(rs.next()){
-	ogretmenId= rs.getInt("ogretmen_id"); 
-}
-int makaleId= Integer.parseInt(request.getParameter("makale_id")); 
- 
+<form method="POST" action="ogretmen_rapor_yukle_response.jsp" >
 
- Boolean b =  vt.execute("insert into makale_degerlendirme.makale_rapor (makale_id,makale_ogretmen_id,makale_rapor_tarih) "+
-	"values ('"+makaleId+"','"+ogretmenId+"','"+today+"'     )   "); 
- if(b){
-	 System.out.print("RAPOR YÜKLEME BAŞARILI");
-	 
-	 Boolean b1 =  vt.execute("update makale_degerlendirme.makaleler set makale_rapor_tarih='"+today+"'  "); 
-	 
-	  
-	 response.sendRedirect("ogretmen_main.jsp");
- }
- else {
-	 System.out.print("RAPOR YÜKLEME BAŞARISIZ");
-	 response.sendRedirect("ogretmen_main.jsp");
- }
+      <div class="modal-body" >
+      <div class="col-lg-6">
+      <div class="form-group">
+      
+      
+       <div class="col-lg-6">
+       <div class="form-group">
+       <label>Makale İçerik</label>
+       <input class="form-control" name="makaleIcerik" type="text" required />
+       </div>
+       </div>
+          
+       </div>
+       <div class="modal-footer">
+       <input type="submit" value="Upload" name="upload" id="upload" /> 
+       </div>
+       </form>
+ <%
+ int makaleId= Integer.parseInt(request.getParameter("makale_id")); 
+      
+ session.setAttribute("makale_id", makaleId);
+ %>
 
-%>
  
 </body>
 </html>

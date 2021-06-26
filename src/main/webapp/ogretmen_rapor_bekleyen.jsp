@@ -263,7 +263,7 @@
                         </li>
 
                         <li class="submenu">
-                            <a class="active" href="ogretmen_onay_bekleyen.jsp">
+                            <a class="active" href="ogretmen_main.jsp">
                                 <i class="fas fa-file-alt"></i>
                                 <span>Onay Bekleyen Makaleler</span>
                             </a>
@@ -605,7 +605,6 @@
                          <td>Blog</td> 
                          <td>    
                         <a href='FileReadPdf1?id=<%=rs.getString("makale_id")%>' class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Makaleyi İncele</a>
-                       
                         <a href="ogretmen_rapor_yukle.jsp?makale_id=<%=rs.getString("makale_id") %>" class="btn btn-primary btn-sm btn-block"><i class="far fa-edit"></i> Rapor Yükle</a>                                                        
                           
                          </td>
@@ -613,7 +612,7 @@
                            <% 
   			           }
   			           else { 
-  			        	/*  makaleId= rs.getInt("makale_id");
+  			        	   makaleId= rs.getInt("makale_id");
   			        	 System.out.println("makale id = "+makaleId); 
   			        	 Boolean b1= vt.execute("update makale_degerlendirme.makaleler set makale_ogretmen_id=NULL, kabul_ret_baslangic_tarih=NULL where makale_id='"+makaleId+"'  ");
   			        	 if(b1){
@@ -621,15 +620,14 @@
   			        	 }
   			        	 else {
   			        		System.out.println(" SÜRESİ GEÇMİŞ MAKALE GÜNCELLENEMEDİ ");
-  			        	 } */
+  			        	 }  
   			        	 
   			           }  
                      
                          } 
-                        %>        
-                                               
-                                                <tr>
-                                                    <td>
+                        %>             
+                          <tr>
+                               <td>
                                                         <div class="blog_list"><img class="img-fluid d-none d-lg-block" alt="image" src="https://via.placeholder.com/180x120" /></div>
                                                         <h4> Vivamus condimentum rutrum odio</h4>
                                                         <p>Posted by <b>Administrator</b> at Nov 29 2018</p>

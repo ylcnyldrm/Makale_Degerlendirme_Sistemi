@@ -24,8 +24,7 @@
        } 
     }  
    if(sifre!=null  &&  ad!=null &&  soyad!=null && tc!=null ){
-	   if (sifre.length()>=5 && ozelKarakterSayisi>=3  ){
-		    
+	   if (sifre.length()>=5 && ozelKarakterSayisi>=3  ){ 
 		   Veritabanibaglantisi vt= new Veritabanibaglantisi();
 		   try {
 			   Boolean sonuc= vt.execute("insert into makale_degerlendirme.makale_yazar (makale_yazar_ad,makale_yazar_soyad,makale_yazar_tc,"+
@@ -38,8 +37,7 @@
 				   }
 				   else {
 					   out.print("KAYIT BAŞARISIZ TEKRAR DENEYİN"); 
-				   }
-				 // response.sendRedirect("kullanici_giris.jsp"); 
+				   } 
 			   }else {
 				   out.print("KAYIT BAŞARISIZ TEKRAR DENEYİN"); 
 			   }
